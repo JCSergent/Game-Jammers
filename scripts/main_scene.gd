@@ -2,8 +2,6 @@ extends Camera3D
 
 @onready var zone = $"../impact_zone"
 
-signal released
-
 var start_pos = Vector3(0,0,0)
 var end_pos = Vector3(0,0,0)
 
@@ -29,7 +27,7 @@ func _process(delta):
 
 	if Input.is_action_just_released("mouseclick"):
 		zone.visible = false
-		released.emit()
+		SignalBus.released.emit()
 
 func shoot_ray():
 	var mouse_pos = get_viewport().get_mouse_position()
