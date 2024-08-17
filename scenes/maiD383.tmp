@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dn7hpecn01mal"]
 
 [ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_sk3b3"]
-[ext_resource type="PlaneMesh" uid="uid://cxeyxv142vckk" path="res://shaders/waterMesh.tres" id="2_dac4k"]
+[ext_resource type="PlaneMesh" uid="uid://cxeyxv142vckk" path="res://waterMesh.tres" id="2_dac4k"]
 [ext_resource type="PackedScene" uid="uid://dnj3pg2bkgmvw" path="res://scenes/boat.tscn" id="3_7tbkn"]
 [ext_resource type="PackedScene" uid="uid://d1xuc3nexxn5a" path="res://scenes/enemy_spawner.tscn" id="4_jru2n"]
 [ext_resource type="PackedScene" uid="uid://cb5lf7jvb2ma0" path="res://scenes/impact_zone.tscn" id="4_mrcbv"]
@@ -17,10 +17,10 @@ fog_light_color = Color(0.607867, 0.640886, 0.69277, 1)
 fog_density = 0.1381
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t0x6k"]
-size = Vector3(0.0578676, 0.221603, 2.02262)
+size = Vector3(2.00591, 0.158142, 0.024292)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_skxcl"]
-size = Vector3(1.00115, 0.218397, 0.0624855)
+size = Vector3(0.0147764, 0.160019, 1.01752)
 
 [node name="Node3D2" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
@@ -39,101 +39,87 @@ mesh = ExtResource("2_dac4k")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.11329, 0.993562, 0, -0.993562, 0.11329, 0.00349808, 1.28219, 0.845849)
 
-[node name="boat" parent="." node_paths=PackedStringArray("enemy_group") instance=ExtResource("3_7tbkn")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.25, 0.4)
-enemy_group = NodePath("enemies")
+[node name="boat" parent="." instance=ExtResource("3_7tbkn")]
+transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-16, -1, 3.48787e-16, -4.37114e-08, 0, 0, 0.366429)
 
-[node name="Enemy Spawners" type="Node3D" parent="boat"]
-
-[node name="Enemy Spawner2" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+[node name="Enemy Spawner2" parent="boat" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
 transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.5, -0.25, -0.76882)
+keybind = "W"
 new_parent = NodePath("../../enemies")
 
-[node name="Enemy Spawner" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+[node name="Enemy Spawner" parent="boat" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -0.5, -0.25, -0.303058)
 keybind = "W"
 new_parent = NodePath("../../enemies")
 
-[node name="Enemy Spawner3" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+[node name="Enemy Spawner3" parent="boat" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
 transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.5, -0.25, 0.153646)
-new_parent = NodePath("../../enemies")
-
-[node name="Enemy Spawner4" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.5, -0.25, 0.664)
-new_parent = NodePath("../../enemies")
-
-[node name="Enemy Spawner5" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.5, -0.25, -0.76882)
-new_parent = NodePath("../../enemies")
-
-[node name="Enemy Spawner6" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.5, -0.25, -0.303058)
-new_parent = NodePath("../../enemies")
-
-[node name="Enemy Spawner7" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.5, -0.25, 0.153646)
-new_parent = NodePath("../../enemies")
-
-[node name="Enemy Spawner8" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.5, -0.25, 0.664)
-new_parent = NodePath("../../enemies")
-
-[node name="Enemy Spawner9" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.000493646, -0.25, 1)
 keybind = "E"
 new_parent = NodePath("../../enemies")
 
-[node name="Enemy Boundries" type="Node3D" parent="boat"]
+[node name="Enemy Spawner4" parent="boat" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.5, -0.25, 0.664)
+keybind = "R"
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Spawner5" parent="boat" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.5, -0.25, -0.76882)
+keybind = "W"
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Spawner6" parent="boat" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.5, -0.25, -0.303058)
+keybind = "W"
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Spawner7" parent="boat" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.5, -0.25, 0.153646)
+keybind = "E"
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Spawner8" parent="boat" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.5, -0.25, 0.664)
+keybind = "R"
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Boundries" type="Node" parent="boat"]
 
 [node name="Front Boundry" type="Area3D" parent="boat/Enemy Boundries"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, -0.55, 0.35, 7.10543e-15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.324248, 0.873735)
 collision_layer = 4
 script = ExtResource("5_00g3m")
-direction = Vector3(1, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Front Boundry"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.0196565, 0, -0.000603676)
 shape = SubResource("BoxShape3D_t0x6k")
 
 [node name="Back Boundry" type="Area3D" parent="boat/Enemy Boundries"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.5, 0.35, 0)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.324248, -0.142497)
 collision_layer = 4
-script = ExtResource("5_00g3m")
-direction = Vector3(-1, 0, 0)
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Back Boundry"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.0196565, 0, -0.000603676)
 shape = SubResource("BoxShape3D_t0x6k")
 
 [node name="Left Boundry" type="Area3D" parent="boat/Enemy Boundries"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0.331865, 1.02947)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.997263, 0.324248, 0.349853)
 collision_layer = 4
-script = ExtResource("5_00g3m")
-direction = Vector3(0, 0, -1)
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Left Boundry"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00924683)
 shape = SubResource("BoxShape3D_skxcl")
 
 [node name="Right Boundry" type="Area3D" parent="boat/Enemy Boundries"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0.35, -1.02961)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0033, 0.324248, 0.349853)
 collision_layer = 4
-script = ExtResource("5_00g3m")
-direction = Vector3(0, 0, 1)
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Right Boundry"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_skxcl")
-
-[node name="enemies" type="Node3D" parent="boat"]
 
 [node name="impact_zone" parent="." instance=ExtResource("4_mrcbv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.35797, 0)
 
+[node name="enemies" type="Node" parent="."]
+
 [connection signal="area_entered" from="boat/Enemy Boundries/Front Boundry" to="boat/Enemy Boundries/Front Boundry" method="_on_area_entered"]
-[connection signal="area_entered" from="boat/Enemy Boundries/Back Boundry" to="boat/Enemy Boundries/Back Boundry" method="_on_area_entered"]
-[connection signal="area_entered" from="boat/Enemy Boundries/Left Boundry" to="boat/Enemy Boundries/Left Boundry" method="_on_area_entered"]
-[connection signal="area_entered" from="boat/Enemy Boundries/Right Boundry" to="boat/Enemy Boundries/Right Boundry" method="_on_area_entered"]
-[connection signal="child_entered_tree" from="boat/enemies" to="boat" method="_on_enemies_child_entered_tree"]
-[connection signal="child_exiting_tree" from="boat/enemies" to="boat" method="_on_enemies_child_exiting_tree"]

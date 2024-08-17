@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://kva5wf7p6klj"]
 
-[ext_resource type="PlaneMesh" uid="uid://cxeyxv142vckk" path="res://waterMesh.tres" id="1_2hvne"]
+[ext_resource type="PlaneMesh" uid="uid://cxeyxv142vckk" path="res://shaders/waterMesh.tres" id="1_2hvne"]
 
 [node name="Node3D" type="Node3D"]
 
