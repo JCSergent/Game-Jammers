@@ -1,5 +1,9 @@
 class_name Enemy extends Area3D
 
+var in_range = false
+var state: String
+var direction: Vector3
+var speed: float = 0.2
 # current ship bounds apprx
 const X_BOUNDS = [-1, 1]
 const Y_BOUNDS = [-0.1, 0.86]
@@ -50,6 +54,16 @@ func launch(delta):
 	self.position = bezier(time)
 	time += delta
 	
+func wander(direction: Vector3):
+	flip(direction)
+	state = 'Wander'
+
+func flip(direction: Vector3):
+	self.direction = direction.rotated(Vector3.UP, randf_range(-PI/4, PI/4))
+	
+func _physics_process(delta):
+	if state == 'Wander':
+		self.position += direction * speed * delta
 	if time >= 1: # animation done
 		queue_free()
 

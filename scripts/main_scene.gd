@@ -1,16 +1,16 @@
 extends Camera3D
 
-@onready var zone = $"../impact_zone"
+@onready var zone: ImpactZone = $"../impact_zone"
 
 var start_pos = Vector3(0,0,0)
 var end_pos = Vector3(0,0,0)
 
 func _ready():
-	zone.visible = false
+	zone.disable()
 
 func _process(delta):
 	if Input.is_action_just_pressed("mouseclick"):
-		zone.visible = true
+		zone.enable()
 		var res = shoot_ray()
 		if !res.is_empty():
 			start_pos = res["position"]

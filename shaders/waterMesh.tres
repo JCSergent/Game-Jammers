@@ -11,8 +11,8 @@ shader_parameter/FOAM_COL = Color(0.8125, 0.9609, 0.9648, 1)
 shader_parameter/distortion_speed = 2.0
 shader_parameter/tile = Vector2(2000, 2000)
 shader_parameter/height = 0.0
-shader_parameter/wave_size = Vector2(0, 0)
-shader_parameter/wave_speed = 1.0
+shader_parameter/wave_size = Vector2(2, 2)
+shader_parameter/wave_speed = 1.5
 
 [resource]
 material = SubResource("ShaderMaterial_xt8g4")
