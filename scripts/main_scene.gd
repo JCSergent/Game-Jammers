@@ -27,7 +27,7 @@ func _process(delta):
 
 	if Input.is_action_just_released("mouseclick"):
 		zone.visible = false
-		SignalBus.released.emit()
+		SignalBus.released.emit(start_pos)
 
 func shoot_ray():
 	var mouse_pos = get_viewport().get_mouse_position()

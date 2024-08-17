@@ -1,3 +1,8 @@
+VBoxContainer
+HSlider
+Control
+TextEdit
+CanvasLayer
 Sprite2D
 Node
 CollisionPolygon3D

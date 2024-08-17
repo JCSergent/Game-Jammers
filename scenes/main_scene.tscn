@@ -57,25 +57,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.35797, 0)
 [node name="enemies" type="Node" parent="."]
 
 [node name="enemy" parent="enemies" instance=ExtResource("5_4akxe")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.784522, 0.25, 0.497876)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 1, 0.25, -0.1)
 
 [node name="enemy2" parent="enemies" instance=ExtResource("5_4akxe")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.821794, 0.25, 0.801718)
 
-[node name="enemy3" parent="enemies" instance=ExtResource("5_4akxe")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.602289, 0.25, 0.154178)
-
 [node name="enemy4" parent="enemies" instance=ExtResource("5_4akxe")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.220239, 0.25, 0.224478)
-
-[node name="enemy5" parent="enemies" instance=ExtResource("5_4akxe")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.462244, 0.25, 0.666807)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.174997, 0.25, 0.224478)
 
 [node name="enemy6" parent="enemies" instance=ExtResource("5_4akxe")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.157884, 0.25, 0.2389)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.0220098, 0.25, 0.2389)
 
 [node name="enemy7" parent="enemies" instance=ExtResource("5_4akxe")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.0895806, 0.25, 0.565747)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.0895806, 0.25, 0.230121)
 
 [node name="enemy8" parent="enemies" instance=ExtResource("5_4akxe")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.312347, 0.25, 0.687434)
