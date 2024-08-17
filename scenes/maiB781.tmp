@@ -35,20 +35,8 @@ transform = Transform3D(1, 0, 0, 0, 0.11329, 0.993562, 0, -0.993562, 0.11329, 0.
 [node name="boat" parent="." instance=ExtResource("3_7tbkn")]
 transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-16, -1, 3.48787e-16, -4.37114e-08, 0, 0, 0.366429)
 
-[node name="Enemy Spawner2" parent="boat" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.5, -0.25, -0.465762)
-keybind = "W"
-new_parent = NodePath("../../enemies")
-
-[node name="Enemy Spawner" parent="boat" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, -3.71742e-30, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -0.5, -0.25, 0)
-keybind = "W"
-new_parent = NodePath("../../enemies")
-
-[node name="Enemy Spawner3" parent="boat" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.5, -0.25, 0.456704)
-keybind = "E"
-new_parent = NodePath("../../enemies")
+[node name="Enemy Spawner" parent="boat" instance=ExtResource("4_jru2n")]
+transform = Transform3D(-4.37113e-08, 1, -4.37114e-08, -2.24477e-23, -4.37114e-08, -1, -1, -4.37113e-08, 1.91068e-15, -0.506821, -9.49761e-17, -0.780222)
 
 [node name="impact_zone" parent="." instance=ExtResource("4_mrcbv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.35797, 0)
