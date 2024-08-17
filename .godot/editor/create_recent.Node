@@ -1,0 +1,8 @@
+Node
+CollisionPolygon3D
+MeshInstance3D
+CollisionShape3D
+Sprite3D
+Area3D
+Node3D
+StaticBody3D

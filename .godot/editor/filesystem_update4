@@ -1,0 +1,16 @@
+res://3dworld.tscn
+res://waterMesh.tres
+res://scenes/game.tscn
+res://scenes/marker.tscn
+res://scenes/boat.tscn
+res://scripts/Camera3D.gd
+res://scenes/impact_zone.tscn
+res://scenes/impact_zone.gd
+res://scenes/enemy.tscn
+res://scenes/enemy.gd
+res://scripts/enemy.gd
+res://scenes/3dworld.tscn
+res://scenes/water.tscn
+res://scenes/main_scene.tscn
+res://stowaway.tscn
+res://scenes/hand.tscn
