@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://cb5lf7jvb2ma0"]
+
+[sub_resource type="GDScript" id="GDScript_fpcct"]
+script/source = "extends Node3D
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jodo"]
+albedo_color = Color(0.241801, 0.739466, 0.447733, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_7424h"]
+material = SubResource("StandardMaterial3D_1jodo")
+size = Vector3(1, 1, 0.5)
+
+[node name="impact_zone" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.25, 2.08165e-12)
+script = SubResource("GDScript_fpcct")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0, 1.5)
+collision_layer = 2
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(1, -1.39515e-15, -3.04919e-23, 0, -8.74228e-08, 1, -6.97574e-16, -2, -4.37114e-08, 2.08165e-12, 0, -0.5)
+mesh = SubResource("PrismMesh_7424h")
+skeleton = NodePath("../..")
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Area3D"]
+transform = Transform3D(1, -6.66422e-31, 2.91302e-38, 0, -4.37114e-08, -1, 6.66422e-31, 1, -4.37114e-08, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+polygon = PackedVector2Array(-0.520728, 0.523001, 0.0813762, -1.56903, 0.624202, 0.484003)

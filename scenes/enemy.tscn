@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://5e2nedeyvsu2"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_i3ln0"]
+[ext_resource type="Texture2D" uid="uid://cc666boh0f6on" path="res://icon.svg" id="2_s3hlv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mwcmi"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gpmbt"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ykft1"]
+albedo_texture = SubResource("CompressedTexture2D_gpmbt")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_o5run"]
+material = SubResource("StandardMaterial3D_ykft1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a03ql"]
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = ExtResource("2_s3hlv")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_xjm5j"]
+material = SubResource("StandardMaterial3D_a03ql")
+
+[node name="enemy" type="Area3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+collision_layer = 3
+collision_mask = 2
+script = ExtResource("1_i3ln0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.5, 2.08165e-12)
+shape = SubResource("SphereShape3D_mwcmi")
+
+[node name="mesh2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.5, 2.08165e-12)
+mesh = SubResource("QuadMesh_o5run")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.5, 2.08165e-12)
+visible = false
+mesh = SubResource("QuadMesh_xjm5j")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
