@@ -1,9 +1,11 @@
-Sprite2D
+Node3D
+CollisionShape3D
 Node
+Area3D
+Marker3D
+RayCast3D
+Sprite2D
 CollisionPolygon3D
 MeshInstance3D
-CollisionShape3D
 Sprite3D
-Area3D
-Node3D
 StaticBody3D
