@@ -7,3 +7,4 @@ res://scenes/water.tscn
 res://scenes/marker.tscn
 res://scripts/enemy.gd
 res://scripts/main_scene.gd
+res://scripts/Enemy Spawner.gd

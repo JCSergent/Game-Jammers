@@ -5,7 +5,7 @@ extends Node3D
 @export var landing_point: Marker3D
 @onready var path_follow_3d = $Path3D/PathFollow3D
 var enemy = preload("res://scenes/enemy.tscn")
-var active_enemy: Enemy  = null
+var active_enemy = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

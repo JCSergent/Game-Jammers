@@ -20,7 +20,8 @@ fog_density = 0.7032
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, -5.2318e-16, 3.02058e-16, 3.02058e-16, 0.866025, 0.5, -5.2318e-16, -0.5, 0.866025, -0.00298806, 0.69631, 1.24546)
+transform = Transform3D(1, -6.50845e-16, 1.74393e-16, 1.74393e-16, 0.5, 0.866025, -6.50845e-16, -0.866025, 0.5, 2.08165e-12, 1.5, 1.2)
+fov = 60.0
 script = ExtResource("1_sk3b3")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
