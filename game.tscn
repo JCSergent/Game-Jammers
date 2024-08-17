@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctj7t4ynp2kci"]
+
+[ext_resource type="Texture2D" uid="uid://c607xhj5twp8k" path="res://assets/tilemap.png" id="1_dswsj"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0)
+projection = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_dswsj")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1xuc3nexxn5a"]
+
+[ext_resource type="Script" path="res://Enemy Spawner.gd" id="1_g3td2"]
+
+[sub_resource type="Curve3D" id="Curve3D_ti3n3"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, -0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[node name="Enemy Spawner" type="Node3D"]
+transform = Transform3D(-4.37113e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+script = ExtResource("1_g3td2")
+keybind = "W"
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 1, -4.37114e-08, -4.37114e-08, -4.37114e-08, -1, 1.91069e-15, 0, 0, 0)
+curve = SubResource("Curve3D_ti3n3")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, -0.1, 0)
+loop = false
