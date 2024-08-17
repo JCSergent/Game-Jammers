@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://dn7hpecn01mal"]
+[gd_scene load_steps=7 format=3 uid="uid://dn7hpecn01mal"]
 
-[ext_resource type="Texture2D" uid="uid://c607xhj5twp8k" path="res://assets/tilemap.png" id="1_b32p7"]
 [ext_resource type="PackedScene" uid="uid://d1xuc3nexxn5a" path="res://enemy_spawner.tscn" id="3_21nfl"]
 [ext_resource type="PackedScene" uid="uid://bse5kgxs8lldr" path="res://stowaway.tscn" id="5_a0sxt"]
 [ext_resource type="PlaneMesh" uid="uid://cxeyxv142vckk" path="res://waterMesh.tres" id="5_wb4jj"]
@@ -9,12 +8,12 @@
 
 [sub_resource type="Environment" id="Environment_rsja5"]
 background_mode = 2
+background_color = Color(1, 0, 1, 1)
 sky = SubResource("Sky_psoru")
+tonemap_white = 16.0
 fog_enabled = true
 fog_light_color = Color(0.694855, 0.723181, 0.767688, 1)
 fog_density = 0.7032
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_w1yjj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kvi8s"]
 
@@ -29,18 +28,6 @@ mesh = ExtResource("5_wb4jj")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.88061, 0.473842, 0, -0.473842, 0.88061, -0.0103401, 0.660172, 1.34824)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.21268, 0.525667, 3.54743)
-
-[node name="Sprite3D" type="Sprite3D" parent="StaticBody3D"]
-axis = 1
-texture = ExtResource("1_b32p7")
-region_enabled = true
-region_rect = Rect2(153, 68, 85, 67)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_w1yjj")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.11329, 0.993562, 0, -0.993562, 0.11329, 0.00349808, 1.28219, 0.845849)
 
@@ -49,13 +36,13 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.0
 size = Vector3(0.32959, 0.565918, 1)
 material = SubResource("StandardMaterial3D_kvi8s")
 
+[node name="Deck" type="Node3D" parent="Ship"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33206, 0)
+
 [node name="Enemy Spawner" parent="Ship" node_paths=PackedStringArray("deck") instance=ExtResource("3_21nfl")]
 transform = Transform3D(-4.37113e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37113e-08, 1.91068e-15, -0.17138, -0.217099, -0.357254)
 keybind = "Q"
 deck = NodePath("../Deck")
-
-[node name="Deck" type="Node3D" parent="Ship"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33206, 0)
 
 [node name="Enemy Spawner2" parent="Ship" node_paths=PackedStringArray("deck") instance=ExtResource("3_21nfl")]
 transform = Transform3D(-4.37113e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37113e-08, 1.91068e-15, -0.17138, -0.221296, -0.0501621)

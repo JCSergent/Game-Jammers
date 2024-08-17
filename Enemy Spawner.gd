@@ -4,7 +4,7 @@ extends Node3D
 @export var deck: Node3D;
 @onready var path_follow_3d = $Path3D/PathFollow3D
 var stowaway = preload("res://stowaway.tscn")
-var active_stowaway = null;
+var active_stowaway: Stowaway  = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,6 +17,7 @@ func _process(delta):
 		if path_follow_3d.progress_ratio == 1:
 			path_follow_3d.remove_child(active_stowaway)
 			deck.add_child(active_stowaway)
+			active_stowaway.change_state('Wander')
 			path_follow_3d.progress = 0
 			active_stowaway = null
 			
