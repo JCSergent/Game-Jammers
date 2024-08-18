@@ -26,8 +26,9 @@ func _process(delta):
 			zone.look_at(Vector3(end_pos.x, start_pos.y, end_pos.z))
 
 	if Input.is_action_just_released("mouseclick"):
-		zone.visible = false
-		SignalBus.released.emit(start_pos)
+		zone.scale = Vector3(0,0,0) # hot fix for weird bug
+		zone.disable()
+		SignalBus.released.emit(start_pos, start_pos.distance_to(end_pos))
 
 func shoot_ray():
 	var mouse_pos = get_viewport().get_mouse_position()

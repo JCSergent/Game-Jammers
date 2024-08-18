@@ -5,24 +5,19 @@ var state: String
 var direction: Vector3
 var speed: float = 0.2
 # current ship bounds apprx
-const X_BOUNDS = [-1, 1]
-const Y_BOUNDS = [-0.1, 0.86]
+const X_BOUNDS = [-0.5, 0.5]
+const Y_BOUNDS = [-1, 1]
+const INITIAL_Y = 0.26945611834526 # idk where this number comes from
 
 var p0 = Vector3.ZERO
 var p1 = Vector3.ZERO
 var p2 = Vector3.ZERO
 
 var time = 0
-var in_range = false
 var hit = false
 
 func _ready():
 	SignalBus.released.connect(_calc_hit_trajectory)
-
-func _process(delta):
-	if hit:
-		launch(delta)
-	
 
 func _on_area_entered(area):
 	in_range = true
@@ -32,11 +27,19 @@ func _on_area_exited(area):
 	in_range = false
 	set_mesh()
 	
-func _calc_hit_trajectory(mouse_pos):
+func _calc_hit_trajectory(mouse_pos, power):
 	if in_range:
+		var diff = (mouse_pos - self.global_position)*Vector3(1,0,1) 
+		
+		# the ship is rotated 90deg in y axis so I'm hacking this together rather than changing it
+		# this gets the distance between the base of the cone and the enemy to calc the vector the enemy trajectory should follow
+		var rot = Vector3(diff.z, 0, -diff.x).normalized()
 		p0 = self.position
-		p1 = find_mid_point(mouse_pos, self.position)
-		p2 = find_mid_point(mouse_pos, self.position)*Vector3(1.5, 0, 1.5)
+		p1 = self.position + rot*power + Vector3(0,0.4,0)
+		p2 = self.position + rot*power + Vector3(0,self.position.y, 0)
+		
+		if !in_bounds(p2):
+			p2 *= Vector3(1,0,1)
 		hit = true
 	
 
@@ -62,11 +65,20 @@ func flip(direction: Vector3):
 	self.direction = direction.rotated(Vector3.UP, randf_range(-PI/4, PI/4))
 	
 func _physics_process(delta):
-	if state == 'Wander':
+	if hit:
+		launch(delta)
+		if in_bounds(p2) and self.position.y < INITIAL_Y:
+			self.position.y = INITIAL_Y
+			hit = false
+			time = 0
+		elif !in_bounds(p2) and self.position.y == 0:
+			queue_free()
+	if state == 'Wander' and !hit:
 		self.position += direction * speed * delta
-	if time >= 1: # animation done
-		queue_free()
-
+		
+func in_bounds(pos):
+	return pos.x > X_BOUNDS[0] and pos.x < X_BOUNDS[1] and pos.z > Y_BOUNDS[0] and pos.z < Y_BOUNDS[1]
+		
 func find_mid_point(mouse_pos, enemy_pos):
 	var slope = (mouse_pos.z - enemy_pos.z) / (mouse_pos.x - enemy_pos.x)
 	var y0 = mouse_pos.z
