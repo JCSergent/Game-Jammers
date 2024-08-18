@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://yv3lh8qdu54f"]
+
+[ext_resource type="PackedScene" uid="uid://cb8dx3nuydvwo" path="res://assets/Gamejam_BoatSimple_Large.glb" id="1_4rwgc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_15mvd"]
+albedo_color = Color(0.313897, 0.224095, 0.14064, 1)
+
+[node name="Gamejam_BoatSimple_Large" instance=ExtResource("1_4rwgc")]
+
+[node name="Retopo_Cube_013" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_15mvd")

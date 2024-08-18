@@ -4,10 +4,10 @@
 
 [sub_resource type="Curve3D" id="Curve3D_ti3n3"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, -0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0),
-"tilts": PackedFloat32Array(0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.1, -0.1, 0, 0, 0, 0, 0, 0, 0, -0.01, 0.25, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0),
+"tilts": PackedFloat32Array(0, 0, 0)
 }
-point_count = 2
+point_count = 3
 
 [node name="Enemy Spawner" type="Node3D" node_paths=PackedStringArray("landing_point", "landing_point2")]
 transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, 0, 0, 0)
@@ -17,15 +17,15 @@ landing_point = NodePath("Marker3D")
 landing_point2 = NodePath("Marker3D2")
 
 [node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17367e-08, -0.0426045, -0.519466)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.49854e-09, -0.139562, -0.519466)
 
 [node name="Marker3D2" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, -0.519)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.23816e-09, -0.296958, -0.519)
 
 [node name="Path3D" type="Path3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 1, -4.37114e-08, -4.37114e-08, -4.37114e-08, -1, 3.55271e-15, 0, 0, 0)
 curve = SubResource("Curve3D_ti3n3")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, -0.1, 0)
+transform = Transform3D(-4.37114e-08, -0.974859, -0.222825, 0, 0.222825, -0.974859, 1, -4.26124e-08, -9.73998e-09, -0.09, -0.1, 0)
 loop = false
