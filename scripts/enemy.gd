@@ -4,20 +4,21 @@ class_name Enemy extends Area3D
 @onready var animated_sprite_3d = $AnimatedSprite3D
 
 @export var start_wander: bool
-var state: String
+var in_range = false
+var state: String = 'Climbing'
 var direction: Vector3
 var speed: float = 0.2
 # current ship bounds apprx
 const X_BOUNDS = [-0.5, 0.5]
 const Y_BOUNDS = [-1, 1]
-const INITIAL_Y = 0.26945611834526 # idk where this number comes from
+const INITIAL_Y = 0.27945611834526 # idk where this number comes from
+#var INITIAL_Y: float = 0.0
 
 var p0 = Vector3.ZERO
 var p1 = Vector3.ZERO
 var p2 = Vector3.ZERO
 
 var time = 0
-var hit = false
 
 func _ready():
 	if start_wander:
@@ -37,18 +38,19 @@ func _on_area_exited(area):
 func _calc_hit_trajectory(mouse_pos, power):
 	if in_range:
 		var diff = (mouse_pos - self.global_position)*Vector3(1,0,1) 
-		
+
 		# the ship is rotated 90deg in y axis so I'm hacking this together rather than changing it
 		# this gets the distance between the base of the cone and the enemy to calc the vector the enemy trajectory should follow
 		var rot = Vector3(diff.z, 0, -diff.x).normalized()
 		p0 = self.position
 		p1 = self.position + rot*power + Vector3(0,0.4,0)
 		p2 = self.position + rot*power + Vector3(0,self.position.y, 0)
-		animation_player.play('gnome_flying')
 		
 		if !in_bounds(p2):
 			p2 *= Vector3(1,0,1)
-		hit = true
+			
+		state = 'Flying'
+		animation_player.play('gnome_flying')
 
 func set_mesh():
 	pass
@@ -66,12 +68,12 @@ func launch(delta):
 	time += delta
 	
 func wander(direction: Vector3):
-	state = 'Wander'
+	state = 'Walking'
 	animation_player.play('gnome_walking')
 	flip(direction)
 
 func flip(direction: Vector3):
-	if state == 'Wander':
+	if state == 'Walking':
 		self.direction = direction.rotated(Vector3.UP, randf_range(-PI/4, PI/4))
 		if self.direction.z < 0:
 			animated_sprite_3d.flip_h = true
@@ -81,15 +83,17 @@ func flip(direction: Vector3):
 		
 	
 func _physics_process(delta):
-	if hit:
+	if state == 'Flying':
 		launch(delta)
 		if in_bounds(p2) and self.position.y < INITIAL_Y:
 			self.position.y = INITIAL_Y
-			hit = false
 			time = 0
+			state = 'Walking'
+			var new_direction = Vector3(p2.x-p0.x, 0, p2.z-p0.z).normalized()
+			get_tree().create_timer(randf_range(0,0.4)).timeout.connect(func get_up(): wander(new_direction))
 		elif !in_bounds(p2) and self.position.y == 0:
 			queue_free()
-	if state == 'Wander' and !hit:
+	elif state == 'Walking':
 		self.position += direction * speed * delta
 		
 func in_bounds(pos):
