@@ -1,44 +1,25 @@
-extends Camera3D
+extends Node3D
+
+@onready var main_camera: MainCamera = $"Main Camera"
+@onready var spawner_manager: SpawnerManager = $"boat/Enemy Spawners"
+@onready var start_enemy = $"boat/Start Enemy"
 @onready var zone = $"../impact_zone"
 
-@export var pull_difficulty = 0.2
-
-var start_pos = Vector3(0,0,0)
-var end_pos = Vector3(0,0,0)
+var game_state = 'Start'
 
 func _ready():
-	zone.disable()
-
+	pass
+	
 func _process(delta):
-	if Input.is_action_just_pressed("mouseclick"):
-		zone.enable()
-		var res = shoot_ray()
-		if !res.is_empty():
-			start_pos = res["position"]
-			zone.position = start_pos
-			zone.scale = Vector3(0.1, 0.1 ,0.1)
+	if game_state == 'Start':
+		if start_enemy == null:
+			main_camera.view_game()
+			spawner_manager.restart()
+			game_state = 'Play'
+	elif game_state == 'Play':
+		pass
+		#if Input.is_action_just_pressed("Q"):
+			#main_camera.view_start()
+			#spawner_manager.stop()
+			#game_state = 'Start'
 
-	if Input.is_action_pressed("mouseclick"):
-		var res = shoot_ray()
-		if !res.is_empty():
-			end_pos = res["position"]
-			var s = min(Vector3(start_pos.x, end_pos.y, start_pos.z).distance_to(end_pos) * pull_difficulty, 0.2) # limit size of cone
-			zone.scale = Vector3(s,0.1,s)
-			zone.look_at(Vector3(end_pos.x, end_pos.y, end_pos.z))
-			zone.position.y = end_pos.y
-
-	if Input.is_action_just_released("mouseclick"):
-		zone.disable()
-		zone.scale = Vector3(0.01,0.01,0.01) # hot fix for weird bug
-		SignalBus.released.emit(start_pos, start_pos.distance_to(end_pos))
-
-func shoot_ray():
-	var mouse_pos = get_viewport().get_mouse_position()
-	var ray_len = 1000
-	var from = project_ray_origin(mouse_pos)
-	var to = from + project_ray_normal(mouse_pos) * ray_len
-	var space = get_world_3d().direct_space_state
-	var ray_query = PhysicsRayQueryParameters3D.new()
-	ray_query.from = from
-	ray_query.to = to
-	return space.intersect_ray(ray_query)

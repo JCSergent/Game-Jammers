@@ -3,7 +3,7 @@ class_name Enemy extends Area3D
 @onready var animation_player = $AnimationPlayer
 @onready var animated_sprite_3d = $AnimatedSprite3D
 
-@export var start_wander: bool
+@export var starter: bool
 var in_range = false
 var state: String = 'Climbing'
 var direction: Vector3
@@ -11,7 +11,7 @@ var speed: float = 0.2
 # current ship bounds apprx
 const X_BOUNDS = [-0.5, 0.5]
 const Y_BOUNDS = [-1, 1]
-const INITIAL_Y = 0.27945611834526 # idk where this number comes from
+const INITIAL_Y = 0.375 # idk where this number comes from
 #var INITIAL_Y: float = 0.0
 
 var p0 = Vector3.ZERO
@@ -21,8 +21,8 @@ var p2 = Vector3.ZERO
 var time = 0
 
 func _ready():
-	if start_wander:
-		wander(Vector3.FORWARD)
+	if starter:
+		animation_player.play("gnome_idle")
 	else:
 		animation_player.play('gnome_climbing')
 	SignalBus.released.connect(_calc_hit_trajectory)
@@ -37,7 +37,9 @@ func _on_area_exited(area):
 	
 func _calc_hit_trajectory(mouse_pos, power):
 	if in_range:
-		var diff = (mouse_pos - self.global_position)*Vector3(1,0,1) 
+		var diff = (mouse_pos - self.global_position)*Vector3(1,0,1)
+		if starter:
+			power = 0.9
 
 		# the ship is rotated 90deg in y axis so I'm hacking this together rather than changing it
 		# this gets the distance between the base of the cone and the enemy to calc the vector the enemy trajectory should follow
@@ -46,6 +48,8 @@ func _calc_hit_trajectory(mouse_pos, power):
 		p1 = self.position + rot*power + Vector3(0,0.4,0)
 		p2 = self.position + rot*power + Vector3(0,self.position.y, 0)
 		
+		if starter:
+			p1 += Vector3(0,0.4,0)
 		if !in_bounds(p2):
 			p2 *= Vector3(1,0,1)
 			
@@ -54,8 +58,6 @@ func _calc_hit_trajectory(mouse_pos, power):
 
 func set_mesh():
 	pass
-	#self.get_child(1).visible = !in_range
-	#self.get_child(2).visible = in_range
 
 func bezier(t):
 	var q0 = p0.lerp(p1, t)
@@ -68,6 +70,7 @@ func launch(delta):
 	time += delta
 	
 func wander(direction: Vector3):
+	self.position.y = INITIAL_Y
 	state = 'Walking'
 	animation_player.play('gnome_walking')
 	flip(direction)
@@ -79,16 +82,14 @@ func flip(direction: Vector3):
 			animated_sprite_3d.flip_h = true
 		else:
 			animated_sprite_3d.flip_h = false
-		
-		
 	
 func _physics_process(delta):
 	if state == 'Flying':
 		launch(delta)
-		if in_bounds(p2) and self.position.y < INITIAL_Y:
+		if in_bounds(p2) and self.position.y < INITIAL_Y -0.01:
 			self.position.y = INITIAL_Y
 			time = 0
-			state = 'Walking'
+			state = ''
 			var new_direction = Vector3(p2.x-p0.x, 0, p2.z-p0.z).normalized()
 			get_tree().create_timer(randf_range(0,0.4)).timeout.connect(func get_up(): wander(new_direction))
 		elif !in_bounds(p2) and self.position.y == 0:
