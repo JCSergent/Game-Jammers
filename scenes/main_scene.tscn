@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dn7hpecn01mal"]
+[gd_scene load_steps=13 format=3 uid="uid://dn7hpecn01mal"]
 
 [ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_sk3b3"]
 [ext_resource type="PlaneMesh" uid="uid://cxeyxv142vckk" path="res://shaders/waterMesh.tres" id="2_dac4k"]
@@ -23,6 +23,9 @@ fog_light_color = Color(0.659572, 0.690093, 0.738049, 1)
 fog_density = 0.07
 adjustment_enabled = true
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_1j7uk"]
+size = Vector3(6.79425, 1, 9.95972)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_t0x6k"]
 size = Vector3(0.0578676, 0.221603, 2.02262)
 
@@ -46,7 +49,15 @@ transform = Transform3D(1, 0, 0, 0, 0.321721, 0.946835, 0, -0.946835, 0.321721, 
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.25, 0.4)
 enemy_group = NodePath("enemies")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="boat"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.025, -0.25, 1.09487e-09)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boat/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 0)
+shape = SubResource("BoxShape3D_1j7uk")
+
 [node name="Enemy Spawners" type="Node3D" parent="boat"]
+visible = false
 script = ExtResource("4_ohoik")
 
 [node name="Enemy Spawner" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
@@ -88,6 +99,7 @@ keybind = "E"
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Boundries" type="Node3D" parent="boat"]
+visible = false
 
 [node name="Front Boundry" type="Area3D" parent="boat/Enemy Boundries"]
 transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, -0.55, 0.35, 7.10543e-15)

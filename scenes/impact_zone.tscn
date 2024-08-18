@@ -1,9 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://cb5lf7jvb2ma0"]
+[gd_scene load_steps=6 format=3 uid="uid://cb5lf7jvb2ma0"]
 
 [ext_resource type="Script" path="res://scripts/impact_zone.gd" id="1_ab3e7"]
 
+[sub_resource type="Gradient" id="Gradient_pq0lc"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_82nip"]
+gradient = SubResource("Gradient_pq0lc")
+height = 63
+fill_from = Vector2(1, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jodo"]
-albedo_color = Color(0.241801, 0.739466, 0.447733, 1)
+transparency = 1
+cull_mode = 1
+albedo_color = Color(0.745098, 0.0666667, 0.0666667, 0.576471)
+albedo_texture = SubResource("GradientTexture2D_82nip")
 
 [sub_resource type="PrismMesh" id="PrismMesh_7424h"]
 material = SubResource("StandardMaterial3D_1jodo")
@@ -20,7 +30,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
-transform = Transform3D(1, -1.39515e-15, -3.04919e-23, 0, -8.74228e-08, 1, -6.97574e-16, -2, -4.37114e-08, 2.08165e-12, 0, -0.5)
+transform = Transform3D(1, -1.39515e-15, -5.19647e-24, 0, -8.74228e-08, 0.170421, -6.97574e-16, -2, -7.44935e-09, 2.08165e-12, 0.10449, -0.5)
 mesh = SubResource("PrismMesh_7424h")
 skeleton = NodePath("../..")
 

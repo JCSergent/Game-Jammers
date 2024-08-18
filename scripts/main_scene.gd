@@ -1,6 +1,7 @@
 extends Camera3D
+@onready var zone = $"../impact_zone"
 
-@onready var zone: ImpactZone = $"../impact_zone"
+@export var pull_difficulty = 0.2
 
 var start_pos = Vector3(0,0,0)
 var end_pos = Vector3(0,0,0)
@@ -21,13 +22,14 @@ func _process(delta):
 		var res = shoot_ray()
 		if !res.is_empty():
 			end_pos = res["position"]
-			var s = min(start_pos.distance_to(end_pos), 0.2) # limit size of cone
+			var s = min(Vector3(start_pos.x, end_pos.y, start_pos.z).distance_to(end_pos) * pull_difficulty, 0.2) # limit size of cone
 			zone.scale = Vector3(s,0.1,s)
-			zone.look_at(Vector3(end_pos.x, start_pos.y, end_pos.z))
+			zone.look_at(Vector3(end_pos.x, end_pos.y, end_pos.z))
+			zone.position.y = end_pos.y
 
 	if Input.is_action_just_released("mouseclick"):
-		zone.scale = Vector3(0,0,0) # hot fix for weird bug
 		zone.disable()
+		zone.scale = Vector3(0.01,0.01,0.01) # hot fix for weird bug
 		SignalBus.released.emit(start_pos, start_pos.distance_to(end_pos))
 
 func shoot_ray():
