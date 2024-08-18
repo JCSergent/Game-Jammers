@@ -1,26 +1,30 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1723927261
-waterMesh.tres::PlaneMesh::6396941707673198046::1723923970::0::1::::<><>::res://shaders/windwaker_water.gdshader
-::res://assets/::1723927246
-Gnome1.png::CompressedTexture2D::8641694490757553894::1723926958::1723926969::1::::<><>::
-icon.svg::CompressedTexture2D::4979152425927233277::1723837497::1723927242::1::::<><>::
-::res://scenes/::1723927098
-boat.tscn::PackedScene::8092023637775165888::1723927097::0::1::::<><>::res://scripts/boat.gd
-enemy.tscn::PackedScene::2115585609225143283::1723927098::0::1::::<><>::res://scripts/enemy.gd<>uid://dvedpfhu27015::::res://assets/Gnome1.png
-enemy_spawner.tscn::PackedScene::9032872076404317976::1723927098::0::1::::<><>::res://scripts/Enemy Spawner.gd
-impact_zone.tscn::PackedScene::4905640055142983057::1723927098::0::1::::<><>::res://scripts/impact_zone.gd
-main_scene.tscn::PackedScene::8138229126169689787::1723927264::0::1::::<><>::res://scripts/main_scene.gd<>uid://cxeyxv142vckk::::res://waterMesh.tres<>uid://dnj3pg2bkgmvw::::res://scenes/boat.tscn<>uid://d1xuc3nexxn5a::::res://scenes/enemy_spawner.tscn<>uid://cb5lf7jvb2ma0::::res://scenes/impact_zone.tscn<>res://scripts/EnemyBoundry.gd
+::res://::1723931542
+::res://assets/::1723951609
+Gnome1.png::CompressedTexture2D::8641694490757553894::1723931542::1723931542::1::::<><>::
+Gnome_Climbing.png::CompressedTexture2D::3945228931946981692::1723951608::1723951609::1::::<><>::
+Gnome_Flying.png::CompressedTexture2D::1838936378480527529::1723954522::1723954525::1::::<><>::
+Gnome_Walking.png::CompressedTexture2D::4061598706059826620::1723939517::1723939937::1::::<><>::
+icon.svg::CompressedTexture2D::4979152425927233277::1723931542::1723931542::1::::<><>::
+::res://scenes/::1723954465
+boat.tscn::PackedScene::8092023637775165888::1723954304::0::1::::<><>::res://scripts/boat.gd
+enemy.tscn::PackedScene::2115585609225143283::1723954304::0::1::::<><>::res://scripts/enemy.gd<>uid://dvedpfhu27015::::res://assets/Gnome1.png<>uid://bwhdlx1wtohjo::::res://assets/Gnome_Climbing.png<>uid://1g2apt47r77b::::res://assets/Gnome_Flying.png<>uid://bx4p64q6ol421::::res://assets/Gnome_Walking.png
+enemy_spawner.tscn::PackedScene::9032872076404317976::1723954304::0::1::::<><>::res://scripts/Enemy Spawner.gd
+impact_zone.tscn::PackedScene::4905640055142983057::1723954304::0::1::::<><>::res://scripts/impact_zone.gd
+main_scene.tscn::PackedScene::8138229126169689787::1723954465::0::1::::<><>::res://scripts/main_scene.gd<>uid://cxeyxv142vckk::::res://shaders/waterMesh.tres<>uid://dnj3pg2bkgmvw::::res://scenes/boat.tscn<>uid://d1xuc3nexxn5a::::res://scenes/enemy_spawner.tscn<>uid://cb5lf7jvb2ma0::::res://scenes/impact_zone.tscn<>res://scripts/Spawner Manager.gd<>res://scripts/EnemyBoundry.gd
 marker.tscn::PackedScene::4784405926772964962::1723911448::0::1::::<><>::
-water.tscn::PackedScene::745295107745660239::1723911448::0::1::::<><>::uid://cxeyxv142vckk::::res://waterMesh.tres
-::res://scripts/::1723926896
-boat.gd::GDScript::-1::1723926569::0::1::::<>StaticBody3D<>::
+water.tscn::PackedScene::745295107745660239::1723927264::0::1::::<><>::uid://cxeyxv142vckk::::res://shaders/waterMesh.tres
+::res://scripts/::1723954465
+boat.gd::GDScript::-1::1723938181::0::1::::<>StaticBody3D<>::
 climbpath.gd::GDScript::-1::1723911448::0::1::::<>RemoteTransform3D<>::
-Enemy Spawner.gd::GDScript::-1::1723926896::0::1::::<>Node3D<>::
-enemy.gd::GDScript::-1::1723926648::0::1::::Enemy<>Area3D<>::
-EnemyBoundry.gd::GDScript::-1::1723922360::0::1::::<>Area3D<>::
-impact_zone.gd::GDScript::-1::1723926488::0::1::::ImpactZone<>Node3D<>::
-main_scene.gd::GDScript::-1::1723926795::0::1::::<>Camera3D<>::
+Enemy Spawner.gd::GDScript::-1::1723954272::0::1::::EnemySpawner<>Node3D<>::
+enemy.gd::GDScript::-1::1723953275::0::1::::Enemy<>Area3D<>::
+EnemyBoundry.gd::GDScript::-1::1723931784::0::1::::<>Area3D<>::
+impact_zone.gd::GDScript::-1::1723931542::0::1::::ImpactZone<>Node3D<>::
+main_scene.gd::GDScript::-1::1723936846::0::1::::<>Camera3D<>::
+Spawner Manager.gd::GDScript::-1::1723954465::0::1::::<>Node3D<>::
 signal_bus.gd::GDScript::-1::1723915814::0::1::::<>Node3D<>::
-::res://shaders/::1723927261
+::res://shaders/::1723954465
 waterLibrary.tres::MeshLibrary::2675282952113259667::1723846069::0::1::::<><>::res://shaders/windwaker_water.gdshader
-windwaker_water.gdshader::Shader::-1::1723927264::0::1::::<><>::
+waterMesh.tres::PlaneMesh::6396941707673198046::1723938937::0::1::::<><>::res://shaders/windwaker_water.gdshader
+windwaker_water.gdshader::Shader::-1::1723954465::0::1::::<><>::

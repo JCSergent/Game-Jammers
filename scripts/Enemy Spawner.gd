@@ -1,4 +1,4 @@
-extends Node3D
+class_name EnemySpawner extends Node3D
 
 @export var keybind: String
 @export var new_parent: Node
@@ -10,6 +10,8 @@ var active_enemy: Enemy  = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Input.is_action_just_pressed(keybind):
+		spawn_enemy()
 	if active_enemy:
 		if path_follow_3d.progress_ratio == 1:
 			path_follow_3d.remove_child(active_enemy)
@@ -19,11 +21,13 @@ func _process(delta):
 			active_enemy.wander(forward.normalized())
 			path_follow_3d.progress = 0
 			active_enemy = null
-	elif Input.is_action_just_pressed(keybind):
-		active_enemy = enemy.instantiate()
-		path_follow_3d.add_child(active_enemy)
 
 func _physics_process(delta):
 	if active_enemy:
 		const move_speed := 0.2
 		path_follow_3d.progress += move_speed * delta
+		
+func spawn_enemy():
+	if active_enemy == null:
+		active_enemy = enemy.instantiate()
+		path_follow_3d.add_child(active_enemy)

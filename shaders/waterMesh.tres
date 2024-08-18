@@ -5,7 +5,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xt8g4"]
 render_priority = 0
 shader = ExtResource("1_emvmb")
-shader_parameter/WATER_COL = Color(0.04, 0.38, 0.88, 1)
+shader_parameter/WATER_COL = Color(0.0313726, 0.380392, 0.623529, 1)
 shader_parameter/WATER2_COL = Color(0.04, 0.35, 0.78, 1)
 shader_parameter/FOAM_COL = Color(0.8125, 0.9609, 0.9648, 1)
 shader_parameter/distortion_speed = 2.0
@@ -16,4 +16,4 @@ shader_parameter/wave_speed = 1.5
 
 [resource]
 material = SubResource("ShaderMaterial_xt8g4")
-size = Vector2(200, 200)
+size = Vector2(250, 250)

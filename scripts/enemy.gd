@@ -1,6 +1,9 @@
 class_name Enemy extends Area3D
 
-var in_range = false
+@onready var animation_player = $AnimationPlayer
+@onready var animated_sprite_3d = $AnimatedSprite3D
+
+@export var start_wander: bool
 var state: String
 var direction: Vector3
 var speed: float = 0.2
@@ -17,6 +20,10 @@ var in_range = false
 var hit = false
 
 func _ready():
+	if start_wander:
+		wander(Vector3.FORWARD)
+	else:
+		animation_player.play('gnome_climbing')
 	SignalBus.released.connect(_calc_hit_trajectory)
 
 func _process(delta):
@@ -37,12 +44,13 @@ func _calc_hit_trajectory(mouse_pos):
 		p0 = self.position
 		p1 = find_mid_point(mouse_pos, self.position)
 		p2 = find_mid_point(mouse_pos, self.position)*Vector3(1.5, 0, 1.5)
+		animation_player.play('gnome_flying')
 		hit = true
-	
 
 func set_mesh():
-	self.get_child(1).visible = !in_range
-	self.get_child(2).visible = in_range
+	pass
+	#self.get_child(1).visible = !in_range
+	#self.get_child(2).visible = in_range
 
 func bezier(t):
 	var q0 = p0.lerp(p1, t)
@@ -55,11 +63,19 @@ func launch(delta):
 	time += delta
 	
 func wander(direction: Vector3):
-	flip(direction)
 	state = 'Wander'
+	animation_player.play('gnome_walking')
+	flip(direction)
 
 func flip(direction: Vector3):
-	self.direction = direction.rotated(Vector3.UP, randf_range(-PI/4, PI/4))
+	if state == 'Wander':
+		self.direction = direction.rotated(Vector3.UP, randf_range(-PI/4, PI/4))
+		if self.direction.z < 0:
+			animated_sprite_3d.flip_h = true
+		else:
+			animated_sprite_3d.flip_h = false
+		
+		
 	
 func _physics_process(delta):
 	if state == 'Wander':

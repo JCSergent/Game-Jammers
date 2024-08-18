@@ -12,3 +12,4 @@ res://scripts/boat.gd
 res://scripts/main_scene.gd
 res://scripts/impact_zone.gd
 res://shaders/waterMesh.tres
+res://scripts/Spawner Manager.gd

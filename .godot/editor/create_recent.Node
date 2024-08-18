@@ -1,3 +1,7 @@
+MeshInstance3D
+Sprite3D
+AnimationPlayer
+AnimatedSprite3D
 VBoxContainer
 HSlider
 Control
@@ -8,8 +12,3 @@ Node
 Area3D
 Marker3D
 RayCast3D
-Sprite2D
-CollisionPolygon3D
-MeshInstance3D
-Sprite3D
-StaticBody3D
