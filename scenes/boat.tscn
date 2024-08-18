@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dnj3pg2bkgmvw"]
 
 [ext_resource type="Script" path="res://scripts/boat.gd" id="1_masfh"]
-[ext_resource type="PackedScene" uid="uid://yv3lh8qdu54f" path="res://scenes/boat_skeleton.tscn" id="3_o2yax"]
+[ext_resource type="PackedScene" path="res://scenes/boat_skeleton.tscn" id="3_o2yax"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgq32"]
 albedo_color = Color(0.533333, 0.423529, 0.321569, 1)
@@ -12,7 +12,7 @@ rim_tint = 0.83
 material = SubResource("StandardMaterial3D_mgq32")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6engu"]
-size = Vector3(1, 0.280273, 2.36768)
+size = Vector3(7.53815, 0.280273, 8.29929)
 
 [node name="boat" type="StaticBody3D"]
 script = ExtResource("1_masfh")
@@ -23,7 +23,7 @@ visible = false
 mesh = SubResource("BoxMesh_gm7p2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.221191, -0.103271)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0590515, 0.221191, -0.45317)
 shape = SubResource("BoxShape3D_6engu")
 
 [node name="Gamejam_BoatSimple_Large2" parent="." instance=ExtResource("3_o2yax")]
