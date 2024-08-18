@@ -1,35 +1,36 @@
 class_name ImpactZone extends Node3D
 
 @export var area_3d: Area3D
-@onready var zone: ImpactZone = $"."
 @onready var main_camera: MainCamera = $"../Main Camera"
 
+@export var pull_difficulty = 0.3
 var start_pos = Vector3(0,0,0)
 var end_pos = Vector3(0,0,0)
 
 func _ready():
-	zone.disable()
+	disable()
 
 func _process(delta):
 	if Input.is_action_just_pressed("mouseclick"):
-		zone.enable()
+		enable()
 		var res = shoot_ray()
 		if !res.is_empty():
 			start_pos = res["position"]
-			zone.position = start_pos
-			zone.scale = Vector3(0.1, 0.1 ,0.1)
+			self.position = start_pos
+			self.scale = Vector3(0.1, 0.1 ,0.1)
 
 	if Input.is_action_pressed("mouseclick"):
 		var res = shoot_ray()
 		if !res.is_empty():
 			end_pos = res["position"]
-			var s = min(start_pos.distance_to(end_pos), 0.2) # limit size of cone
-			zone.scale = Vector3(s,0.1,s)
-			zone.look_at(Vector3(end_pos.x, start_pos.y, end_pos.z))
+			var s = min(Vector3(start_pos.x, end_pos.y, start_pos.z).distance_to(end_pos) * pull_difficulty, 0.2) # limit size of cone
+			self.scale = Vector3(s,0.1,s)
+			self.look_at(Vector3(end_pos.x, end_pos.y, end_pos.z))
+			self.position.y = end_pos.y
 
 	if Input.is_action_just_released("mouseclick"):
-		zone.scale = Vector3(0,0,0) # hot fix for weird bug
-		zone.disable()
+		disable()
+		self.scale = Vector3(0.01,0.01,0.01) # hot fix for weird bug
 		SignalBus.released.emit(start_pos, start_pos.distance_to(end_pos))
 
 func shoot_ray():

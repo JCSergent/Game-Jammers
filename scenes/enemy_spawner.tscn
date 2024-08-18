@@ -27,5 +27,5 @@ transform = Transform3D(-4.37114e-08, 0, -1, 1, -4.37114e-08, -4.37114e-08, -4.3
 curve = SubResource("Curve3D_ti3n3")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(-4.37114e-08, -0.974859, -0.222825, 0, 0.222825, -0.974859, 1, -4.26124e-08, -9.73998e-09, -0.09, -0.1, 0)
+transform = Transform3D(-4.37114e-08, -0.968493, -0.249041, 0, 0.249041, -0.968493, 1, -4.23342e-08, -1.08859e-08, -0.1, -0.1, 0)
 loop = false

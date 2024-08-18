@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnj3pg2bkgmvw"]
+[gd_scene load_steps=6 format=3 uid="uid://dnj3pg2bkgmvw"]
 
 [ext_resource type="Script" path="res://scripts/boat.gd" id="1_masfh"]
-[ext_resource type="PackedScene" uid="uid://cb8dx3nuydvwo" path="res://assets/Gamejam_BoatSimple_Large.glb" id="2_o0cc6"]
 [ext_resource type="PackedScene" uid="uid://yv3lh8qdu54f" path="res://scenes/boat_skeleton.tscn" id="3_o2yax"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgq32"]
@@ -26,10 +25,6 @@ mesh = SubResource("BoxMesh_gm7p2")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.221191, -0.103271)
 shape = SubResource("BoxShape3D_6engu")
-
-[node name="Gamejam_BoatSimple_Large" parent="." instance=ExtResource("2_o0cc6")]
-transform = Transform3D(-0.15, 0, -1.31134e-08, 0, 0.15, 0, 1.31134e-08, 0, -0.15, 0, -0.0965106, 0)
-visible = false
 
 [node name="Gamejam_BoatSimple_Large2" parent="." instance=ExtResource("3_o2yax")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)

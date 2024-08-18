@@ -3,6 +3,7 @@ extends Node3D
 @onready var main_camera: MainCamera = $"Main Camera"
 @onready var spawner_manager: SpawnerManager = $"boat/Enemy Spawners"
 @onready var start_enemy = $"boat/Start Enemy"
+@onready var zone = $"../impact_zone"
 
 var game_state = 'Start'
 
