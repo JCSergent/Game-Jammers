@@ -1,0 +1,412 @@
+[gd_scene load_steps=34 format=3 uid="uid://dn7hpecn01mal"]
+
+[ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_sk3b3"]
+[ext_resource type="Shader" path="res://shaders/windwaker_water.gdshader" id="2_cjsv4"]
+[ext_resource type="PackedScene" uid="uid://dnj3pg2bkgmvw" path="res://scenes/boat.tscn" id="3_7tbkn"]
+[ext_resource type="PackedScene" uid="uid://d1xuc3nexxn5a" path="res://scenes/enemy_spawner.tscn" id="4_jru2n"]
+[ext_resource type="PackedScene" uid="uid://cb5lf7jvb2ma0" path="res://scenes/impact_zone.tscn" id="4_mrcbv"]
+[ext_resource type="Script" path="res://scripts/Spawner Manager.gd" id="4_ohoik"]
+[ext_resource type="Script" path="res://scripts/EnemyBoundry.gd" id="5_00g3m"]
+[ext_resource type="Script" path="res://scripts/Camera.gd" id="8_oqmxj"]
+[ext_resource type="PackedScene" uid="uid://5e2nedeyvsu2" path="res://scenes/enemy.tscn" id="8_p2pha"]
+[ext_resource type="PackedScene" uid="uid://decv5gljvci2c" path="res://assets/island1.glb" id="10_clheq"]
+[ext_resource type="PackedScene" uid="uid://dxnylk6j8hu54" path="res://assets/island2.glb" id="11_25jnh"]
+[ext_resource type="PackedScene" uid="uid://b380y6jf33jiq" path="res://assets/island3.glb" id="12_yxsbw"]
+
+[sub_resource type="Shader" id="Shader_xr527"]
+code = "
+// NOTE: Shader automatically converted from Godot Engine 4.2.2.stable's ProceduralSkyMaterial.
+
+shader_type sky;
+render_mode use_debanding;
+
+uniform vec4 sky_top_color : source_color = vec4(0.385, 0.454, 0.55, 1.0);
+uniform vec4 sky_horizon_color : source_color = vec4(0.646, 0.656, 0.67, 1.0);
+uniform float sky_curve : hint_range(0, 1) = 0.15;
+uniform float sky_energy = 1.0; // In Lux.
+uniform sampler2D sky_cover : filter_linear, source_color, hint_default_black;
+uniform vec4 sky_cover_modulate : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform vec4 ground_bottom_color : source_color = vec4(0.2, 0.169, 0.133, 1.0);
+uniform vec4 ground_horizon_color : source_color = vec4(0.646, 0.656, 0.67, 1.0);
+uniform float ground_curve : hint_range(0, 1) = 0.02;
+uniform float ground_energy = 1.0;
+uniform float sun_angle_max = 30.0;
+uniform float sun_curve : hint_range(0, 1) = 0.15;
+
+uniform sampler2D cloud_texture;
+uniform sampler2D cloud_texture2;
+uniform vec2 cloud_direction;
+uniform vec2 cloud_direction2;
+uniform vec2 cloud_scale;
+uniform float cloud_distance;
+
+
+void sky() {
+	float v_angle = acos(clamp(EYEDIR.y, -1.0, 1.0));
+	float c = (1.0 - v_angle / (PI * 0.5));
+	vec3 sky = mix(sky_horizon_color.rgb, sky_top_color.rgb, clamp(1.0 - pow(1.0 - c, 1.0 / sky_curve), 0.0, 1.0));
+	sky *= sky_energy;
+
+	if (LIGHT0_ENABLED) {
+		float sun_angle = acos(dot(LIGHT0_DIRECTION, EYEDIR));
+		if (sun_angle < LIGHT0_SIZE) {
+			sky = LIGHT0_COLOR * LIGHT0_ENERGY;
+		} else if (sun_angle < sun_angle_max) {
+			float c2 = (sun_angle - LIGHT0_SIZE) / (sun_angle_max - LIGHT0_SIZE);
+			sky = mix(LIGHT0_COLOR * LIGHT0_ENERGY, sky, clamp(1.0 - pow(1.0 - c2, 1.0 / sun_curve), 0.0, 1.0));
+		}
+	}
+
+	if (LIGHT1_ENABLED) {
+		float sun_angle = acos(dot(LIGHT1_DIRECTION, EYEDIR));
+		if (sun_angle < LIGHT1_SIZE) {
+			sky = LIGHT1_COLOR * LIGHT1_ENERGY;
+		} else if (sun_angle < sun_angle_max) {
+			float c2 = (sun_angle - LIGHT1_SIZE) / (sun_angle_max - LIGHT1_SIZE);
+			sky = mix(LIGHT1_COLOR * LIGHT1_ENERGY, sky, clamp(1.0 - pow(1.0 - c2, 1.0 / sun_curve), 0.0, 1.0));
+		}
+	}
+
+	if (LIGHT2_ENABLED) {
+		float sun_angle = acos(dot(LIGHT2_DIRECTION, EYEDIR));
+		if (sun_angle < LIGHT2_SIZE) {
+			sky = LIGHT2_COLOR * LIGHT2_ENERGY;
+		} else if (sun_angle < sun_angle_max) {
+			float c2 = (sun_angle - LIGHT2_SIZE) / (sun_angle_max - LIGHT2_SIZE);
+			sky = mix(LIGHT2_COLOR * LIGHT2_ENERGY, sky, clamp(1.0 - pow(1.0 - c2, 1.0 / sun_curve), 0.0, 1.0));
+		}
+	}
+
+	if (LIGHT3_ENABLED) {
+		float sun_angle = acos(dot(LIGHT3_DIRECTION, EYEDIR));
+		if (sun_angle < LIGHT3_SIZE) {
+			sky = LIGHT3_COLOR * LIGHT3_ENERGY;
+		} else if (sun_angle < sun_angle_max) {
+			float c2 = (sun_angle - LIGHT3_SIZE) / (sun_angle_max - LIGHT3_SIZE);
+			sky = mix(LIGHT3_COLOR * LIGHT3_ENERGY, sky, clamp(1.0 - pow(1.0 - c2, 1.0 / sun_curve), 0.0, 1.0));
+		}
+	}
+
+	vec4 sky_cover_texture = texture(sky_cover, SKY_COORDS);
+	sky += (sky_cover_texture.rgb * sky_cover_modulate.rgb) * sky_cover_texture.a * sky_cover_modulate.a * sky_energy;
+
+	c = (v_angle - (PI * 0.5)) / (PI * 0.5);
+	vec3 ground = mix(ground_horizon_color.rgb, ground_bottom_color.rgb, clamp(1.0 - pow(1.0 - c, 1.0 / ground_curve), 0.0, 1.0));
+	ground *= ground_energy;
+	
+	vec2 sky_uv = EYEDIR.xz / EYEDIR.y;
+	vec3 clouds = texture(cloud_texture, sky_uv * cloud_scale * TIME * cloud_direction * 0.001).rgb - texture(cloud_texture2,  sky_uv * cloud_scale * TIME * cloud_direction2 * 0.0008).rgb;
+	//sky += clouds;
+
+	COLOR = mix(ground, sky, step(0.0, EYEDIR.y));
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bj31g"]
+noise_type = 2
+frequency = 0.0008
+fractal_type = 3
+fractal_gain = 5.235
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6w2t5"]
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_bj31g")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_iptxm"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_s5img"]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource("FastNoiseLite_iptxm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3k2d0"]
+shader = SubResource("Shader_xr527")
+shader_parameter/sky_top_color = Color(0.129412, 0.8, 1, 1)
+shader_parameter/sky_horizon_color = Color(0.490196, 0.960784, 0.976471, 1)
+shader_parameter/sky_curve = 0.0675935
+shader_parameter/sky_energy = 1.0
+shader_parameter/sky_cover_modulate = Color(1, 1, 1, 1)
+shader_parameter/ground_bottom_color = Color(0.927635, 0.946886, 1, 1)
+shader_parameter/ground_horizon_color = Color(0.230731, 0.712339, 0.897148, 1)
+shader_parameter/ground_curve = 0.101965
+shader_parameter/ground_energy = 1.0
+shader_parameter/sun_angle_max = 0.523599
+shader_parameter/sun_curve = 0.15
+shader_parameter/cloud_direction = Vector2(1, 1)
+shader_parameter/cloud_direction2 = Vector2(0, 0)
+shader_parameter/cloud_scale = Vector2(1, 1)
+shader_parameter/cloud_distance = 999.64
+shader_parameter/cloud_texture = SubResource("NoiseTexture2D_6w2t5")
+shader_parameter/cloud_texture2 = SubResource("NoiseTexture2D_s5img")
+
+[sub_resource type="Sky" id="Sky_psoru"]
+sky_material = SubResource("ShaderMaterial_3k2d0")
+
+[sub_resource type="Environment" id="Environment_rsja5"]
+background_mode = 2
+sky = SubResource("Sky_psoru")
+glow_levels/2 = 1.59
+glow_normalized = true
+glow_intensity = 2.67
+glow_strength = 1.38
+glow_blend_mode = 0
+fog_light_color = Color(0.659572, 0.690093, 0.738049, 1)
+fog_height_density = 16.0
+adjustment_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ya6hf"]
+render_priority = 0
+shader = ExtResource("2_cjsv4")
+shader_parameter/WATER_COL = Color(0.0896756, 0.467107, 0.636614, 1)
+shader_parameter/WATER2_COL = Color(0.0588235, 0.529412, 0.776471, 1)
+shader_parameter/FOAM_COL = Color(0.87451, 0.988235, 1, 1)
+shader_parameter/distortion_speed = 2.0
+shader_parameter/tile = Vector2(5000, 5000)
+shader_parameter/wave_speed = 1.5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u7yt1"]
+lightmap_size_hint = Vector2i(5002, 5002)
+material = SubResource("ShaderMaterial_ya6hf")
+size = Vector2(1000, 1000)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t0x6k"]
+size = Vector3(0.0578676, 0.221603, 2.02262)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_skxcl"]
+size = Vector3(1.00115, 0.218397, 0.0624855)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qv5fb"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 54.41
+dof_blur_far_transition = -1.0
+dof_blur_amount = 0.01
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_i81id"]
+dof_blur_far_distance = 0.07
+dof_blur_far_transition = 45.03
+dof_blur_amount = 0.01
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lmfi6"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.439216)
+billboard_keep_scale = true
+
+[sub_resource type="TextMesh" id="TextMesh_t2t3c"]
+material = SubResource("StandardMaterial3D_lmfi6")
+text = "Gnome Finger Game"
+font_size = 42
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6daxd"]
+albedo_color = Color(0.745098, 0.0666667, 0.0666667, 0.576471)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_guxdr"]
+material = SubResource("StandardMaterial3D_6daxd")
+height = 0.001
+cap_bottom = false
+
+[sub_resource type="Animation" id="Animation_cpgh0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/MeshInstance3D3:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.02, 0.02, 0.02)]
+}
+
+[sub_resource type="Animation" id="Animation_am0tu"]
+resource_name = "start_game"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/MeshInstance3D3:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.02, 0.02, 0.02), Vector3(0.04, 0.04, 0.04)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6kxam"]
+_data = {
+"RESET": SubResource("Animation_cpgh0"),
+"start_game": SubResource("Animation_am0tu")
+}
+
+[node name="Node3D2" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.12276e-05, 0.00487638, -0.00370121)
+script = ExtResource("1_sk3b3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rsja5")
+
+[node name="Water" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_u7yt1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.579964, 0.814642, 0, -0.814642, 0.579964, 0.523952, 8.44928, 5.28395)
+
+[node name="boat" parent="." node_paths=PackedStringArray("enemy_group") instance=ExtResource("3_7tbkn")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.25, 0.4)
+enemy_group = NodePath("enemies")
+
+[node name="Enemy Spawners" type="Node3D" parent="boat"]
+script = ExtResource("4_ohoik")
+
+[node name="Enemy Spawner" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -0.574617, -0.140651, -0.303057)
+keybind = "W"
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Spawner2" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, -0.768822)
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Spawner3" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, 0.153646)
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Spawner4" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, 0.663998)
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Spawner5" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, -0.76882)
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Spawner6" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, -0.303058)
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Spawner7" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, 0.153646)
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Spawner8" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, 0.664)
+new_parent = NodePath("../../enemies")
+
+[node name="Enemy Boundries" type="Node3D" parent="boat"]
+visible = false
+
+[node name="Front Boundry" type="Area3D" parent="boat/Enemy Boundries"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, -0.521878, 0.35, 1.22925e-09)
+collision_layer = 4
+script = ExtResource("5_00g3m")
+direction = Vector3(1, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Front Boundry"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.0196565, 0, -0.000603676)
+shape = SubResource("BoxShape3D_t0x6k")
+
+[node name="Back Boundry" type="Area3D" parent="boat/Enemy Boundries"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.481909, 0.35, -7.90791e-10)
+collision_layer = 4
+script = ExtResource("5_00g3m")
+direction = Vector3(-1, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Back Boundry"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.0196565, 0, -0.000603676)
+shape = SubResource("BoxShape3D_t0x6k")
+
+[node name="Left Boundry" type="Area3D" parent="boat/Enemy Boundries"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0.331865, 1.03708)
+collision_layer = 4
+script = ExtResource("5_00g3m")
+direction = Vector3(0, 0, -1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Left Boundry"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_skxcl")
+
+[node name="Right Boundry" type="Area3D" parent="boat/Enemy Boundries"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0.35, -1.04163)
+collision_layer = 4
+script = ExtResource("5_00g3m")
+direction = Vector3(0, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Right Boundry"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_skxcl")
+
+[node name="enemies" type="Node3D" parent="boat"]
+
+[node name="Start Enemy" parent="boat" instance=ExtResource("8_p2pha")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 6.51351e-17, 0, 0.1, -0.216078, 0.406, -9.44298e-09)
+starter = true
+
+[node name="impact_zone" parent="." instance=ExtResource("4_mrcbv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.35797, -2.08165e-12)
+
+[node name="Main Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, -8.71967e-17, -1.51029e-16, 1.09434e-16, 0.988049, 0.154141, 1.35783e-16, -0.154141, 0.988049, 2.08189e-12, 1.5, 1.2)
+visible = false
+attributes = SubResource("CameraAttributesPractical_qv5fb")
+current = true
+fov = 60.0
+script = ExtResource("8_oqmxj")
+
+[node name="Start Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.982525, 0.18613, 0, -0.18613, 0.982525, 0, 0.919074, 1.21521)
+visible = false
+attributes = SubResource("CameraAttributesPractical_i81id")
+
+[node name="Game Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, -8.71965e-17, -1.51029e-16, 1.74393e-16, 0.5, 0.866025, 0, -0.866025, 0.5, 2.08189e-12, 1.5, 1.2)
+visible = false
+fov = 60.0
+
+[node name="UI" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="UI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.12276e-05, -0.00487638, 0.00370121)
+mesh = SubResource("TextMesh_t2t3c")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="UI"]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0.00204299, 0.605231, 0.709711)
+mesh = SubResource("CylinderMesh_guxdr")
+skeleton = NodePath("")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_6kxam")
+}
+
+[node name="Islands" type="Node" parent="."]
+
+[node name="island1" parent="Islands" instance=ExtResource("10_clheq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -234.24, 0, -167.984)
+
+[node name="island2" parent="Islands" instance=ExtResource("10_clheq")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 58.4179, 0, -228.408)
+
+[node name="island3" parent="Islands/island2" instance=ExtResource("11_25jnh")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 30.3426, -2.06387, 85.3671)
+
+[node name="island4" parent="Islands/island2" instance=ExtResource("11_25jnh")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -26.5369, -3.62716, -38.5657)
+
+[node name="island3" parent="Islands" instance=ExtResource("12_yxsbw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.1745, -0.463877, -62.2596)
+
+[node name="island4" parent="Islands" instance=ExtResource("11_25jnh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103.158, 0, -187.862)
+
+[connection signal="area_entered" from="boat/Enemy Boundries/Front Boundry" to="boat/Enemy Boundries/Front Boundry" method="_on_area_entered"]
+[connection signal="area_entered" from="boat/Enemy Boundries/Back Boundry" to="boat/Enemy Boundries/Back Boundry" method="_on_area_entered"]
+[connection signal="area_entered" from="boat/Enemy Boundries/Left Boundry" to="boat/Enemy Boundries/Left Boundry" method="_on_area_entered"]
+[connection signal="area_entered" from="boat/Enemy Boundries/Right Boundry" to="boat/Enemy Boundries/Right Boundry" method="_on_area_entered"]
+[connection signal="child_entered_tree" from="boat/enemies" to="boat" method="_on_enemies_child_entered_tree"]
+[connection signal="child_exiting_tree" from="boat/enemies" to="boat" method="_on_enemies_child_exiting_tree"]

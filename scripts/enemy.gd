@@ -5,7 +5,7 @@ class_name Enemy extends Area3D
 
 @export var starter: bool
 var in_range = false
-var state: String = 'Climbing'
+var state: String = ''
 var direction: Vector3
 var speed: float = 0.1
 # current ship bounds apprx
@@ -39,7 +39,7 @@ func _calc_hit_trajectory(mouse_pos, power):
 	if in_range:
 		var diff = (mouse_pos - self.global_position)*Vector3(1,0,1)
 		if starter:
-			power = 0.9
+			power = 1.2
 
 		# the ship is rotated 90deg in y axis so I'm hacking this together rather than changing it
 		# this gets the distance between the base of the cone and the enemy to calc the vector the enemy trajectory should follow
@@ -49,7 +49,7 @@ func _calc_hit_trajectory(mouse_pos, power):
 		p2 = self.position + rot*power*2
 
 		if starter:
-			p1 += Vector3(0,0.4,0)
+			p1 += Vector3(0,0.6,0)
 		if !in_bounds(p2):
 			p1 = Vector3(p2.x, p1.y, p2.z)
 			p2 *= Vector3(1,0,1)
@@ -89,6 +89,7 @@ func wander(direction: Vector3):
 
 func flip(direction: Vector3):
 	if state == 'Walking':
+		self.position.y = INITIAL_Y
 		self.direction = direction.rotated(Vector3.UP, randf_range(-PI/4, PI/4))
 		if self.direction.z < 0:
 			animated_sprite_3d.flip_h = true

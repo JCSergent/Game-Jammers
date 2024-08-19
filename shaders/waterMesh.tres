@@ -3,17 +3,8 @@
 [ext_resource type="Shader" path="res://shaders/windwaker_water.gdshader" id="1_emvmb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xt8g4"]
-render_priority = 0
 shader = ExtResource("1_emvmb")
-shader_parameter/WATER_COL = Color(0.0313726, 0.380392, 0.623529, 1)
-shader_parameter/WATER2_COL = Color(0.04, 0.35, 0.78, 1)
-shader_parameter/FOAM_COL = Color(0.8125, 0.9609, 0.9648, 1)
-shader_parameter/distortion_speed = 2.0
-shader_parameter/tile = Vector2(2500, 2500)
-shader_parameter/height = 0.0
-shader_parameter/wave_size = Vector2(2, 2)
-shader_parameter/wave_speed = 1.5
 
 [resource]
 material = SubResource("ShaderMaterial_xt8g4")
-size = Vector2(1000, 1000)
+size = Vector2(50, 50)

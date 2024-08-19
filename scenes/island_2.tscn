@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2l3rqccw8qpa"]
+
+[ext_resource type="PackedScene" uid="uid://dxnylk6j8hu54" path="res://assets/island2.glb" id="1_ynbhn"]
+
+[node name="island2" instance=ExtResource("1_ynbhn")]
