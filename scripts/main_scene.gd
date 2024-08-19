@@ -2,17 +2,27 @@ extends Node3D
 
 @onready var main_camera: MainCamera = $"Main Camera"
 @onready var spawner_manager: SpawnerManager = $"boat/Enemy Spawners"
-@onready var start_enemy = $"boat/Start Enemy"
-@onready var zone = $"../impact_zone"
+@onready var start_enemy: Enemy = $"boat/Start Enemy"
+
+@onready var mesh_instance_3d = $UI/MeshInstance3D
+@onready var mesh_instance_3d_3 = $UI/MeshInstance3D3
+@onready var animation_player = $UI/AnimationPlayer
 
 var game_state = 'Start'
 
 func _ready():
+	animation_player.play("start_game")
 	pass
 	
 func _process(delta):
 	if game_state == 'Start':
+		if Input.is_action_pressed("mouseclick"):
+			mesh_instance_3d_3.visible = false
+		else:
+			mesh_instance_3d_3.visible = true
 		if start_enemy == null:
+			mesh_instance_3d_3.visible = false
+			create_tween().tween_property(mesh_instance_3d, "transparency", 1.0, 0.5).from(0.0)
 			main_camera.view_game()
 			spawner_manager.restart()
 			game_state = 'Play'

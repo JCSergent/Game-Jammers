@@ -5,14 +5,13 @@ class_name Enemy extends Area3D
 
 @export var starter: bool
 var in_range = false
-var state: String = 'Climbing'
+var state: String = ''
 var direction: Vector3
 var speed: float = 0.2
 # current ship bounds apprx
 const X_BOUNDS = [-0.5, 0.5]
 const Y_BOUNDS = [-1, 1]
 const INITIAL_Y = 0.375 # idk where this number comes from
-#var INITIAL_Y: float = 0.0
 
 var p0 = Vector3.ZERO
 var p1 = Vector3.ZERO
@@ -39,7 +38,7 @@ func _calc_hit_trajectory(mouse_pos, power):
 	if in_range:
 		var diff = (mouse_pos - self.global_position)*Vector3(1,0,1)
 		if starter:
-			power = 0.9
+			power = 1.2
 
 		# the ship is rotated 90deg in y axis so I'm hacking this together rather than changing it
 		# this gets the distance between the base of the cone and the enemy to calc the vector the enemy trajectory should follow
@@ -49,7 +48,7 @@ func _calc_hit_trajectory(mouse_pos, power):
 		p2 = self.position + rot*power + Vector3(0,self.position.y, 0)
 		
 		if starter:
-			p1 += Vector3(0,0.4,0)
+			p1 += Vector3(0,0.6,0)
 		if !in_bounds(p2):
 			p2 *= Vector3(1,0,1)
 			
