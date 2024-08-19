@@ -68,7 +68,8 @@ func _calc_hit_trajectory(mouse_pos, power):
 				p2.z = min(p2.z, Y_BOUNDS[0] - LANDING_OFFSET)
 			elif p2.z > Y_BOUNDS[1]:
 				p2.z = max(p2.z, Y_BOUNDS[1] + LANDING_OFFSET)
-				
+
+		animation_player.play('gnome_flying')
 		state = 'Flying'
 
 func set_mesh():
