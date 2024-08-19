@@ -89,6 +89,7 @@ func wander(direction: Vector3):
 
 func flip(direction: Vector3):
 	if state == 'Walking':
+		self.position.y = INITIAL_Y
 		self.direction = direction.rotated(Vector3.UP, randf_range(-PI/4, PI/4))
 		if self.direction.z < 0:
 			animated_sprite_3d.flip_h = true

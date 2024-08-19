@@ -8,8 +8,6 @@ extends Node3D
 @onready var mesh_instance_3d = $UI/MeshInstance3D
 @onready var mesh_instance_3d_3 = $UI/MeshInstance3D3
 @onready var animation_player = $UI/AnimationPlayer
-@onready var spawner_manager = $"boat/Enemy Spawners"
-@onready var start_enemy = $"boat/Start Enemy"
 @onready var enemies = $boat/enemies
 @export var play_music = false
 
@@ -33,11 +31,9 @@ func _process(delta):
 			spawner_manager.restart()
 			game_state = 'Play'
 	elif game_state == 'Play':
-		pass
-	# speed up audio for more enemies
-	music.pitch_scale = min(1.8, 1 + 0.025*int(enemies.get_child_count() / 5))
-	if !music.playing and play_music:
-		music.playing = true
+		music.pitch_scale = min(1.8, 1 + 0.025*int(enemies.get_child_count() / 5))
+		if !music.playing and play_music:
+			music.playing = true
 		
 		#if Input.is_action_just_pressed("Q"):
 			#main_camera.view_start()
