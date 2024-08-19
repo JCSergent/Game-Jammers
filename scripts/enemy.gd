@@ -7,12 +7,12 @@ class_name Enemy extends Area3D
 var in_range = false
 var state: String = 'Climbing'
 var direction: Vector3
-var speed: float = 0.2
+var speed: float = 0.1
 # current ship bounds apprx
-const X_BOUNDS = [-0.5, 0.5]
-const Y_BOUNDS = [-1, 1]
+const X_BOUNDS = [-0.45, 0.45]
+const Y_BOUNDS = [-1.3, 0.6] # this is really z bounds :) 
+const LANDING_OFFSET = 0.2 # for avoiding clipping
 const INITIAL_Y = 0.375 # idk where this number comes from
-#var INITIAL_Y: float = 0.0
 
 var p0 = Vector3.ZERO
 var p1 = Vector3.ZERO
@@ -46,12 +46,24 @@ func _calc_hit_trajectory(mouse_pos, power):
 		var rot = Vector3(diff.z, 0, -diff.x).normalized()
 		p0 = self.position
 		p1 = self.position + rot*power + Vector3(0,0.4,0)
-		p2 = self.position + rot*power + Vector3(0,self.position.y, 0)
-		
+		p2 = self.position + rot*power*2
+		print(self.position, p2)
 		if starter:
 			p1 += Vector3(0,0.4,0)
 		if !in_bounds(p2):
+			p1 = Vector3(p2.x, p1.y, p2.z)
 			p2 *= Vector3(1,0,1)
+			#land far enough away so we don't see clipping through boat
+			if p2.x < X_BOUNDS[0]:
+				p2.x = min(p2.x, X_BOUNDS[0] - LANDING_OFFSET)
+			elif p2.x > X_BOUNDS[1]:
+				p2.x = max(p2.x, X_BOUNDS[1] + LANDING_OFFSET)
+			
+			if p2.z < Y_BOUNDS[0]:
+				p2.z = min(p2.z, Y_BOUNDS[0] - LANDING_OFFSET)
+			elif p2.z > Y_BOUNDS[1]:
+				p2.z = max(p2.z, Y_BOUNDS[1] + LANDING_OFFSET)
+				
 			
 		state = 'Flying'
 		animation_player.play('gnome_flying')
