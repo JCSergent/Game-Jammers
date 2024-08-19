@@ -268,7 +268,6 @@ _data = {
 [node name="Node3D2" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.12276e-05, 0.00487638, -0.00370121)
 script = ExtResource("1_sk3b3")
-play_music = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rsja5")
