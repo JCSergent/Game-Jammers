@@ -12,7 +12,6 @@ point_count = 3
 [node name="Enemy Spawner" type="Node3D" node_paths=PackedStringArray("landing_point", "landing_point2")]
 transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_g3td2")
-keybind = "Q"
 landing_point = NodePath("Marker3D")
 landing_point2 = NodePath("Marker3D2")
 

@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://7itjb8mpxel2"
+path.s3tc="res://.godot/imported/Gamejam_BoatSimple_Small_wCombinedPass_Combined.png-5e8ee08ac8e625f0d4458dae9039882d.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "8d9d5a40629842e7cd8185f04d53a07e"
+}
+
+[deps]
+
+source_file="res://assets/boat/Gamejam_BoatSimple_Small_wCombinedPass_Combined.png"
+dest_files=["res://.godot/imported/Gamejam_BoatSimple_Small_wCombinedPass_Combined.png-5e8ee08ac8e625f0d4458dae9039882d.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

@@ -107,6 +107,7 @@ func _physics_process(delta):
 			get_tree().create_timer(randf_range(0,0.4)).timeout.connect(func get_up(): wander(new_direction))
 		elif !in_bounds(p2) and self.position.y == 0:
 			queue_free()
+			SignalBus.gnome_death.emit()
 	elif state == 'Walking':
 		self.position += direction * speed * delta
 		
