@@ -8,6 +8,9 @@ class_name ImpactZone extends Node3D
 var start_pos = Vector3(0,0,0)
 var end_pos = Vector3(0,0,0)
 
+var splash = preload("res://scenes/splash.tscn")
+var hand_frame = 0
+
 func _ready():
 	disable()
 
@@ -33,19 +36,25 @@ func _process(delta):
 			self.look_at(end_pos)
 			self.position.y = end_pos.y
 			
+			# hand stuff too lazy to put in new script
+			hand.animation = "loadup"
 			var sc = 0.1
 			hand.position = Vector3(start_pos.x + sc*(end_pos.x - start_pos.x), hand.position.y, start_pos.z + sc*(end_pos.z - start_pos.z))
 			var start_flat = Vector2(start_pos.x, start_pos.z)
 			var end_flat = Vector2(end_pos.x, end_pos.z)
 			var angle = atan2(start_flat.y - end_flat.y, start_flat.x - end_flat.x) # radians
-			var frame = int(angle / (PI/6)) + 5 
-			hand.frame = frame
+			hand_frame = int(angle / (PI/6)) + 5 
+			hand.frame = hand_frame
 
 	if Input.is_action_just_released("mouseclick"):
 		disable()
-		hand.visible = false
+		hand.animation = "flick"
+		hand.frame = hand_frame
+		hand.start_timer()
+		# hand.visible = false
 		self.scale = Vector3(0.01,0.01,0.01) # hot fix for weird bug
 		SignalBus.released.emit(start_pos, start_pos.distance_to(end_pos))
+		
 
 func shoot_ray():
 	var mouse_pos = get_viewport().get_mouse_position()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dn7hpecn01mal"]
+[gd_scene load_steps=40 format=3 uid="uid://dn7hpecn01mal"]
 
 [ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_sk3b3"]
 [ext_resource type="Shader" path="res://shaders/windwaker_water.gdshader" id="2_cjsv4"]
@@ -240,6 +240,9 @@ tracks/0/keys = {
 "values": [Vector3(0.02, 0.02, 0.02)]
 }
 
+[sub_resource type="Animation" id="Animation_u8vda"]
+resource_name = "splash"
+
 [sub_resource type="Animation" id="Animation_am0tu"]
 resource_name = "start_game"
 loop_mode = 2
@@ -259,12 +262,14 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6kxam"]
 _data = {
 "RESET": SubResource("Animation_cpgh0"),
+"splash": SubResource("Animation_u8vda"),
 "start_game": SubResource("Animation_am0tu")
 }
 
 [node name="Node3D2" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.12276e-05, 0.00487638, -0.00370121)
 script = ExtResource("1_sk3b3")
+play_music = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rsja5")
@@ -446,6 +451,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.402416, 0, 0)
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_tnwam")
+volume_db = -11.0
 
 [node name="UI" type="Node3D" parent="."]
 

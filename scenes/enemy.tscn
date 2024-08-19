@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://5e2nedeyvsu2"]
+[gd_scene load_steps=6 format=3 uid="uid://5e2nedeyvsu2"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_i3ln0"]
 [ext_resource type="SpriteFrames" uid="uid://bg2q6s8raiwur" path="res://assets/frames/enemy.tres" id="2_i44g7"]
 [ext_resource type="AnimationLibrary" uid="uid://dgn2qfi53br2u" path="res://assets/frames/gnome.res" id="3_t8dau"]
+[ext_resource type="AudioStream" uid="uid://4bms2kfg2s21" path="res://sounds/oof.wav" id="4_t3pky"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mwcmi"]
 
@@ -25,6 +26,11 @@ animation = &"gnome_idle"
 libraries = {
 "": ExtResource("3_t8dau")
 }
+
+[node name="audio_effects" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_t3pky")
+volume_db = 5.0
+pitch_scale = 2.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

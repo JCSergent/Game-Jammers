@@ -2,8 +2,11 @@ class_name Enemy extends Area3D
 
 @onready var animation_player = $AnimationPlayer
 @onready var animated_sprite_3d = $AnimatedSprite3D
+@onready var audio = $audio_effects
 
 @export var starter: bool
+
+var splash = preload("res://scenes/splash.tscn")
 var in_range = false
 var state: String = ''
 var direction: Vector3
@@ -37,6 +40,8 @@ func _on_area_exited(area):
 	
 func _calc_hit_trajectory(mouse_pos, power):
 	if in_range:
+		audio.pitch_scale = 0.8 + float(randi() % 12) / 10
+		audio.playing = true
 		var diff = (mouse_pos - self.global_position)*Vector3(1,0,1)
 		if starter:
 			power = 1.2
@@ -64,9 +69,7 @@ func _calc_hit_trajectory(mouse_pos, power):
 			elif p2.z > Y_BOUNDS[1]:
 				p2.z = max(p2.z, Y_BOUNDS[1] + LANDING_OFFSET)
 				
-			
 		state = 'Flying'
-		animation_player.play('gnome_flying')
 
 func set_mesh():
 	pass
@@ -106,6 +109,7 @@ func _physics_process(delta):
 			var new_direction = Vector3(p2.x-p0.x, 0, p2.z-p0.z).normalized()
 			get_tree().create_timer(randf_range(0,0.4)).timeout.connect(func get_up(): wander(new_direction))
 		elif !in_bounds(p2) and self.position.y == 0:
+			add_splash(self.global_position)
 			queue_free()
 			SignalBus.gnome_death.emit()
 	elif state == 'Walking':
@@ -113,25 +117,10 @@ func _physics_process(delta):
 		
 func in_bounds(pos):
 	return pos.x > X_BOUNDS[0] and pos.x < X_BOUNDS[1] and pos.z > Y_BOUNDS[0] and pos.z < Y_BOUNDS[1]
-		
-func find_mid_point(mouse_pos, enemy_pos):
-	var slope = (mouse_pos.z - enemy_pos.z) / (mouse_pos.x - enemy_pos.x)
-	var y0 = mouse_pos.z
-	var x0 = mouse_pos.x
 	
-	for xc in X_BOUNDS:
-		var y1 = -1*slope*(x0 - xc) + y0
-		var tmp = Vector3(xc, 1, y1)
-		if y1 >= Y_BOUNDS[0] and y1 <= Y_BOUNDS[1] and tmp.distance_to(mouse_pos) > tmp.distance_to(enemy_pos):
-			return tmp
-	for yc in Y_BOUNDS:
-		var x1 = ((y0 - yc) - slope*x0) / -slope
-		var tmp = Vector3(x1, 1, yc)
-		if x1 >= X_BOUNDS[0] and x1 <= X_BOUNDS[1] and tmp.distance_to(mouse_pos) > tmp.distance_to(enemy_pos):
-			# for visual effects / camera angle
-			if yc == -0.1:
-				tmp -= Vector3(0,0,0.4)
-			return tmp
-
-	return Vector3.ZERO
-	
+func add_splash(position):
+	var new_splash = splash.instantiate()
+	new_splash.global_position = Vector3(position.x, 0.1, position.z)
+	new_splash.scale *= 0.05
+	new_splash.rotation = Vector3(80, 0, 0)
+	get_tree().get_root().add_child(new_splash)
