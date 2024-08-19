@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dn7hpecn01mal"]
+[gd_scene load_steps=19 format=3 uid="uid://dn7hpecn01mal"]
 
 [ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_sk3b3"]
 [ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_8nol3"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="8_oqmxj"]
 [ext_resource type="PackedScene" uid="uid://5e2nedeyvsu2" path="res://scenes/enemy.tscn" id="8_p2pha"]
 [ext_resource type="AudioStream" uid="uid://rbatmp1ovsry" path="res://sounds/songofthegnomes.wav" id="11_ls3sj"]
+[ext_resource type="PackedScene" uid="uid://qb4cfjistqv" path="res://scenes/hand.tscn" id="12_gw3ya"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tc0rv"]
 shader = ExtResource("2_8nol3")
@@ -43,7 +44,6 @@ size = Vector3(1.00115, 0.218397, 0.0624855)
 [node name="Node3D2" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 script = ExtResource("1_sk3b3")
-play_music = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rsja5")
@@ -169,6 +169,9 @@ fov = 60.0
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_ls3sj")
 volume_db = -12.0
+
+[node name="hand" parent="." instance=ExtResource("12_gw3ya")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.22031, 0.255703, 0.104334)
 
 [connection signal="area_entered" from="boat/Enemy Boundries/Front Boundry" to="boat/Enemy Boundries/Front Boundry" method="_on_area_entered"]
 [connection signal="area_entered" from="boat/Enemy Boundries/Back Boundry" to="boat/Enemy Boundries/Back Boundry" method="_on_area_entered"]

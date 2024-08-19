@@ -47,7 +47,7 @@ func _calc_hit_trajectory(mouse_pos, power):
 		p0 = self.position
 		p1 = self.position + rot*power + Vector3(0,0.4,0)
 		p2 = self.position + rot*power*2
-		print(self.position, p2)
+
 		if starter:
 			p1 += Vector3(0,0.4,0)
 		if !in_bounds(p2):
