@@ -47,13 +47,14 @@ func _process(delta):
 			hand.frame = hand_frame
 
 	if Input.is_action_just_released("mouseclick"):
+		for enemy in area_3d.get_overlapping_areas():
+			enemy.hit(start_pos, start_pos.distance_to(end_pos))
 		disable()
 		hand.animation = "flick"
 		hand.frame = hand_frame
 		hand.start_timer()
 		# hand.visible = false
 		self.scale = Vector3(0.01,0.01,0.01) # hot fix for weird bug
-		SignalBus.released.emit(start_pos, start_pos.distance_to(end_pos))
 		
 
 func shoot_ray():

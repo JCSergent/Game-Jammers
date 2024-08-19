@@ -27,7 +27,6 @@ area_3d = NodePath("Area3D")
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0, 1.5)
 collision_layer = 2
-collision_mask = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
 transform = Transform3D(1, -1.39515e-15, -5.19647e-24, 0, -8.74228e-08, 0.170421, -6.97574e-16, -2, -7.44935e-09, 2.08165e-12, 0.10449, -0.5)
@@ -36,4 +35,5 @@ skeleton = NodePath("../..")
 
 [node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Area3D"]
 transform = Transform3D(1, -6.66422e-31, 2.91302e-38, 0, -4.37114e-08, -1, 6.66422e-31, 1, -4.37114e-08, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+depth = 2.0
 polygon = PackedVector2Array(-0.520728, 0.523001, 0.0813762, -1.56903, 0.624202, 0.484003)

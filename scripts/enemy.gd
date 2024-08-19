@@ -7,10 +7,9 @@ class_name Enemy extends Area3D
 @export var starter: bool
 
 var splash = preload("res://scenes/splash.tscn")
-var in_range = false
 var state: String = ''
 var direction: Vector3
-var speed: float = 0.1
+var speed: float = 0.2
 # current ship bounds apprx
 const X_BOUNDS = [-0.45, 0.45]
 const Y_BOUNDS = [-1.3, 0.6] # this is really z bounds :) 
@@ -28,52 +27,40 @@ func _ready():
 		animation_player.play("gnome_idle")
 	else:
 		animation_player.play('gnome_climbing')
-	SignalBus.released.connect(_calc_hit_trajectory)
-
-func _on_area_entered(area):
-	in_range = true
-	set_mesh()
-
-func _on_area_exited(area):
-	in_range = false
-	set_mesh()
 	
-func _calc_hit_trajectory(mouse_pos, power):
-	if in_range:
-		audio.pitch_scale = 0.8 + float(randi() % 12) / 10
-		audio.playing = true
-		var diff = (mouse_pos - self.global_position)*Vector3(1,0,1)
-		if starter:
-			power = 1.2
+func hit(mouse_pos, power):
+	audio.pitch_scale = 0.8 + float(randi() % 12) / 10
+	audio.playing = true
+	var diff = (mouse_pos - self.global_position)*Vector3(1,0,1)
+	if starter:
+		power = 1.2
 
-		# the ship is rotated 90deg in y axis so I'm hacking this together rather than changing it
-		# this gets the distance between the base of the cone and the enemy to calc the vector the enemy trajectory should follow
-		var rot = Vector3(diff.z, 0, -diff.x).normalized()
-		p0 = self.position
-		p1 = self.position + rot*power + Vector3(0,0.4,0)
-		p2 = self.position + rot*power*2
+	# the ship is rotated 90deg in y axis so I'm hacking this together rather than changing it
+	# this gets the distance between the base of the cone and the enemy to calc the vector the enemy trajectory should follow
+	var rot = Vector3(diff.z, 0, -diff.x).normalized()
+	p0 = self.position
+	p1 = self.position + rot*power + Vector3(0,0.4,0)
+	p2 = self.position + rot*power*2
 
-		if starter:
-			p1 += Vector3(0,0.6,0)
-		if !in_bounds(p2):
-			p1 = Vector3(p2.x, p1.y, p2.z)
-			p2 *= Vector3(1,0,1)
-			#land far enough away so we don't see clipping through boat
-			if p2.x < X_BOUNDS[0]:
-				p2.x = min(p2.x, X_BOUNDS[0] - LANDING_OFFSET)
-			elif p2.x > X_BOUNDS[1]:
-				p2.x = max(p2.x, X_BOUNDS[1] + LANDING_OFFSET)
-			
-			if p2.z < Y_BOUNDS[0]:
-				p2.z = min(p2.z, Y_BOUNDS[0] - LANDING_OFFSET)
-			elif p2.z > Y_BOUNDS[1]:
-				p2.z = max(p2.z, Y_BOUNDS[1] + LANDING_OFFSET)
+	if starter:
+		p1 += Vector3(0,0.6,0)
+	if !in_bounds(p2):
+		p1 = Vector3(p2.x, p1.y, p2.z)
+		p2 *= Vector3(1,0,1)
+		#land far enough away so we don't see clipping through boat
+		if p2.x < X_BOUNDS[0]:
+			p2.x = min(p2.x, X_BOUNDS[0] - LANDING_OFFSET)
+		elif p2.x > X_BOUNDS[1]:
+			p2.x = max(p2.x, X_BOUNDS[1] + LANDING_OFFSET)
+		
+		if p2.z < Y_BOUNDS[0]:
+			p2.z = min(p2.z, Y_BOUNDS[0] - LANDING_OFFSET)
+		elif p2.z > Y_BOUNDS[1]:
+			p2.z = max(p2.z, Y_BOUNDS[1] + LANDING_OFFSET)
 
 		animation_player.play('gnome_flying')
 		state = 'Flying'
 
-func set_mesh():
-	pass
 
 func bezier(t):
 	var q0 = p0.lerp(p1, t)
@@ -99,7 +86,7 @@ func flip(direction: Vector3):
 			animated_sprite_3d.flip_h = true
 		else:
 			animated_sprite_3d.flip_h = false
-	
+
 func _physics_process(delta):
 	if state == 'Flying':
 		launch(delta)

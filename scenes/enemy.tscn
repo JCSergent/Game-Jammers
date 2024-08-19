@@ -5,7 +5,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://dgn2qfi53br2u" path="res://assets/frames/gnome.res" id="3_t8dau"]
 [ext_resource type="AudioStream" uid="uid://4bms2kfg2s21" path="res://sounds/oof.wav" id="4_t3pky"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_mwcmi"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_4iknn"]
 
 [node name="enemy" type="Area3D"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.0502458, 0)
@@ -13,7 +13,7 @@ collision_mask = 2
 script = ExtResource("1_i3ln0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_mwcmi")
+shape = SubResource("BoxShape3D_4iknn")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 pixel_size = 0.002
