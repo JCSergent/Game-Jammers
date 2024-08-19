@@ -223,6 +223,9 @@ tracks/0/keys = {
 "values": [Vector3(0.02, 0.02, 0.02)]
 }
 
+[sub_resource type="Animation" id="Animation_u8vda"]
+resource_name = "splash"
+
 [sub_resource type="Animation" id="Animation_am0tu"]
 resource_name = "start_game"
 loop_mode = 2
@@ -239,9 +242,6 @@ tracks/0/keys = {
 "values": [Vector3(0.02, 0.02, 0.02), Vector3(0.04, 0.04, 0.04)]
 }
 
-[sub_resource type="Animation" id="Animation_u8vda"]
-resource_name = "splash"
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6kxam"]
 _data = {
 "RESET": SubResource("Animation_cpgh0"),
@@ -252,6 +252,7 @@ _data = {
 [node name="Node3D2" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.12276e-05, 0.00487638, -0.00370121)
 script = ExtResource("1_sk3b3")
+play_music = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rsja5")
@@ -376,6 +377,7 @@ fov = 60.0
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_tnwam")
+volume_db = -11.0
 
 [node name="UI" type="Node3D" parent="."]
 

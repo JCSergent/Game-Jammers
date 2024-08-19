@@ -1,9 +1,10 @@
-[gd_scene load_steps=80 format=3 uid="uid://5e2nedeyvsu2"]
+[gd_scene load_steps=81 format=3 uid="uid://5e2nedeyvsu2"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_i3ln0"]
 [ext_resource type="Texture2D" uid="uid://ccpi3k4dd0rew" path="res://assets/Gnome_Climbing.png" id="2_3nyyf"]
 [ext_resource type="Texture2D" uid="uid://ba1151drgadnf" path="res://assets/Gnome_Walking.png" id="3_yk7sc"]
 [ext_resource type="Texture2D" uid="uid://cq6fng24f5bqt" path="res://assets/Gnome_Idle.png" id="4_0y2p6"]
+[ext_resource type="AudioStream" uid="uid://4bms2kfg2s21" path="res://sounds/oof.wav" id="5_qwkht"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mwcmi"]
 
@@ -708,6 +709,11 @@ speed_scale = 3.5
 libraries = {
 "": SubResource("AnimationLibrary_xwox4")
 }
+
+[node name="audio_effects" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_qwkht")
+volume_db = 5.0
+pitch_scale = 2.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

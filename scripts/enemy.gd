@@ -2,6 +2,7 @@ class_name Enemy extends Area3D
 
 @onready var animation_player = $AnimationPlayer
 @onready var animated_sprite_3d = $AnimatedSprite3D
+@onready var audio = $audio_effects
 
 @export var starter: bool
 
@@ -39,6 +40,8 @@ func _on_area_exited(area):
 	
 func _calc_hit_trajectory(mouse_pos, power):
 	if in_range:
+		audio.pitch_scale = 0.8 + float(randi() % 12) / 10
+		audio.playing = true
 		var diff = (mouse_pos - self.global_position)*Vector3(1,0,1)
 		if starter:
 			power = 1.2
@@ -66,7 +69,6 @@ func _calc_hit_trajectory(mouse_pos, power):
 			elif p2.z > Y_BOUNDS[1]:
 				p2.z = max(p2.z, Y_BOUNDS[1] + LANDING_OFFSET)
 				
-			
 		state = 'Flying'
 
 func set_mesh():

@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://b5sm26chltolw"]
+[gd_scene load_steps=16 format=3 uid="uid://b5sm26chltolw"]
 
 [ext_resource type="Texture2D" uid="uid://g2wp1fmkr3ao" path="res://assets/Splash_Effect.png" id="1_850xf"]
-[ext_resource type="Script" path="res://scenes/splash.gd" id="2_j2mrm"]
+[ext_resource type="Script" path="res://scripts/splash.gd" id="2_j2mrm"]
+[ext_resource type="AudioStream" uid="uid://di3s0e1ikv311" path="res://sounds/ploop1.wav" id="3_f8b6r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1gwcw"]
 atlas = ExtResource("1_850xf")
@@ -102,5 +103,8 @@ autoplay = "splash"
 frame = 12
 frame_progress = 1.0
 script = ExtResource("2_j2mrm")
+
+[node name="splash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_f8b6r")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
