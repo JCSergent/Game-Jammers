@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dn7hpecn01mal"]
+[gd_scene load_steps=39 format=3 uid="uid://dn7hpecn01mal"]
 
 [ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_sk3b3"]
 [ext_resource type="Shader" path="res://shaders/windwaker_water.gdshader" id="2_cjsv4"]
@@ -7,11 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://cb5lf7jvb2ma0" path="res://scenes/impact_zone.tscn" id="4_mrcbv"]
 [ext_resource type="Script" path="res://scripts/Spawner Manager.gd" id="4_ohoik"]
 [ext_resource type="Script" path="res://scripts/EnemyBoundry.gd" id="5_00g3m"]
+[ext_resource type="Script" path="res://scripts/Enemy Manager.gd" id="7_kwfl0"]
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="8_oqmxj"]
 [ext_resource type="PackedScene" uid="uid://5e2nedeyvsu2" path="res://scenes/enemy.tscn" id="8_p2pha"]
 [ext_resource type="PackedScene" uid="uid://decv5gljvci2c" path="res://assets/island1.glb" id="10_clheq"]
 [ext_resource type="PackedScene" uid="uid://dxnylk6j8hu54" path="res://assets/island2.glb" id="11_25jnh"]
-[ext_resource type="Script" path="res://scripts/Graveyard.gd" id="12_5wd2n"]
+[ext_resource type="Script" path="res://scenes/Graveyard.gd" id="12_5wd2n"]
 [ext_resource type="FontFile" uid="uid://cwpvmds5w7q4w" path="res://assets/Basteleur-Moonlight.ttf" id="12_t7rva"]
 [ext_resource type="PackedScene" uid="uid://b380y6jf33jiq" path="res://assets/island3.glb" id="12_yxsbw"]
 [ext_resource type="AudioStream" uid="uid://rbatmp1ovsry" path="res://sounds/songofthegnomes.wav" id="13_tnwam"]
@@ -181,20 +182,6 @@ size = Vector3(0.0578676, 0.221603, 2.02262)
 [sub_resource type="BoxShape3D" id="BoxShape3D_skxcl"]
 size = Vector3(1.00115, 0.218397, 0.0624855)
 
-[sub_resource type="GDScript" id="GDScript_nlivm"]
-script/source = "class_name EnemyManager extends Node3D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-"
-
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qv5fb"]
 dof_blur_far_enabled = true
 dof_blur_far_distance = 54.41
@@ -240,9 +227,6 @@ tracks/0/keys = {
 "values": [Vector3(0.02, 0.02, 0.02)]
 }
 
-[sub_resource type="Animation" id="Animation_u8vda"]
-resource_name = "splash"
-
 [sub_resource type="Animation" id="Animation_am0tu"]
 resource_name = "start_game"
 loop_mode = 2
@@ -262,14 +246,12 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6kxam"]
 _data = {
 "RESET": SubResource("Animation_cpgh0"),
-"splash": SubResource("Animation_u8vda"),
 "start_game": SubResource("Animation_am0tu")
 }
 
 [node name="Node3D2" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.12276e-05, 0.00487638, -0.00370121)
 script = ExtResource("1_sk3b3")
-play_music = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rsja5")
@@ -283,6 +265,8 @@ transform = Transform3D(1, 0, 0, 0, 0.579964, 0.814642, 0, -0.814642, 0.579964, 
 [node name="boat" parent="." node_paths=PackedStringArray("enemy_group") instance=ExtResource("3_7tbkn")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.25, 0.4)
 enemy_group = NodePath("enemies")
+max_enemies = null
+max_sink_offset = null
 
 [node name="Enemy Spawners" type="Node3D" parent="boat"]
 script = ExtResource("4_ohoik")
@@ -410,7 +394,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_skxcl")
 
 [node name="enemies" type="Node3D" parent="boat"]
-script = SubResource("GDScript_nlivm")
+script = ExtResource("7_kwfl0")
 
 [node name="Start Enemy" parent="boat" instance=ExtResource("8_p2pha")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.216078, 0.406, -0.312732)
@@ -451,7 +435,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.402416, 0, 0)
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_tnwam")
-volume_db = -11.0
 
 [node name="UI" type="Node3D" parent="."]
 

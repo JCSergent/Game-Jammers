@@ -111,6 +111,7 @@ func _physics_process(delta):
 		elif !in_bounds(p2) and self.position.y == 0:
 			add_splash(self.global_position)
 			queue_free()
+			SignalBus.gnome_death.emit()
 	elif state == 'Walking':
 		self.position += direction * speed * delta
 		

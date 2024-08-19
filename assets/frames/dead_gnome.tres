@@ -1,0 +1,44 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://bfr52dodmsp08"]
+
+[ext_resource type="Texture2D" uid="uid://cq6fng24f5bqt" path="res://assets/Gnome_Idle.png" id="1_5t5bs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqhen"]
+atlas = ExtResource("1_5t5bs")
+region = Rect2(0, 0, 416, 492)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lvwy"]
+atlas = ExtResource("1_5t5bs")
+region = Rect2(416, 0, 416, 492)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l15j2"]
+atlas = ExtResource("1_5t5bs")
+region = Rect2(832, 0, 416, 492)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jijuj"]
+atlas = ExtResource("1_5t5bs")
+region = Rect2(1248, 0, 416, 492)
+
+[resource]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqhen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lvwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l15j2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jijuj")
+}],
+"loop": true,
+"name": &"gnome_idle",
+"speed": 5.0
+}]

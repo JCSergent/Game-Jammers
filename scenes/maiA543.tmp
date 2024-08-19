@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dn7hpecn01mal"]
+[gd_scene load_steps=38 format=3 uid="uid://dn7hpecn01mal"]
 
 [ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_sk3b3"]
 [ext_resource type="Shader" path="res://shaders/windwaker_water.gdshader" id="2_cjsv4"]
@@ -7,11 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://cb5lf7jvb2ma0" path="res://scenes/impact_zone.tscn" id="4_mrcbv"]
 [ext_resource type="Script" path="res://scripts/Spawner Manager.gd" id="4_ohoik"]
 [ext_resource type="Script" path="res://scripts/EnemyBoundry.gd" id="5_00g3m"]
+[ext_resource type="Script" path="res://scripts/Enemy Manager.gd" id="7_kwfl0"]
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="8_oqmxj"]
 [ext_resource type="PackedScene" uid="uid://5e2nedeyvsu2" path="res://scenes/enemy.tscn" id="8_p2pha"]
 [ext_resource type="PackedScene" uid="uid://decv5gljvci2c" path="res://assets/island1.glb" id="10_clheq"]
 [ext_resource type="PackedScene" uid="uid://dxnylk6j8hu54" path="res://assets/island2.glb" id="11_25jnh"]
-[ext_resource type="Script" path="res://scripts/Graveyard.gd" id="12_5wd2n"]
 [ext_resource type="FontFile" uid="uid://cwpvmds5w7q4w" path="res://assets/Basteleur-Moonlight.ttf" id="12_t7rva"]
 [ext_resource type="PackedScene" uid="uid://b380y6jf33jiq" path="res://assets/island3.glb" id="12_yxsbw"]
 [ext_resource type="AudioStream" uid="uid://rbatmp1ovsry" path="res://sounds/songofthegnomes.wav" id="13_tnwam"]
@@ -181,20 +181,6 @@ size = Vector3(0.0578676, 0.221603, 2.02262)
 [sub_resource type="BoxShape3D" id="BoxShape3D_skxcl"]
 size = Vector3(1.00115, 0.218397, 0.0624855)
 
-[sub_resource type="GDScript" id="GDScript_nlivm"]
-script/source = "class_name EnemyManager extends Node3D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-"
-
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qv5fb"]
 dof_blur_far_enabled = true
 dof_blur_far_distance = 54.41
@@ -240,9 +226,6 @@ tracks/0/keys = {
 "values": [Vector3(0.02, 0.02, 0.02)]
 }
 
-[sub_resource type="Animation" id="Animation_u8vda"]
-resource_name = "splash"
-
 [sub_resource type="Animation" id="Animation_am0tu"]
 resource_name = "start_game"
 loop_mode = 2
@@ -262,14 +245,12 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6kxam"]
 _data = {
 "RESET": SubResource("Animation_cpgh0"),
-"splash": SubResource("Animation_u8vda"),
 "start_game": SubResource("Animation_am0tu")
 }
 
 [node name="Node3D2" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.12276e-05, 0.00487638, -0.00370121)
 script = ExtResource("1_sk3b3")
-play_music = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rsja5")
@@ -288,89 +269,90 @@ enemy_group = NodePath("enemies")
 script = ExtResource("4_ohoik")
 
 [node name="Enemy Spawner" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -0.574617, -0.140651, -0.427274)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -0.574617, -0.140651, -0.303057)
 group = 2
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner2" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, -0.893039)
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, -0.768822)
 group = 1
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner3" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, 0.0294288)
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, 0.153646)
 group = 1
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner4" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, 0.539781)
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, 0.663998)
 group = 2
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner5" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, -0.893037)
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, -0.76882)
 group = 2
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner6" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, -0.427275)
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, -0.303058)
 group = 1
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner7" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, 0.0294288)
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, 0.153646)
 group = 1
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner8" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, 0.539783)
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, 0.664)
 group = 2
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner9" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -0.574617, -0.140651, -0.659579)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -0.574617, -0.140651, -0.535362)
 group = 3
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner10" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, -1.12535)
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, -1.00113)
 group = 4
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner11" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, -0.202876)
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, -0.0786591)
 group = 3
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner12" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, 0.307476)
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.574617, -0.140651, 0.431693)
 group = 4
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner13" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, -1.12602)
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, -1.0018)
 group = 4
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner14" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, -0.660257)
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, -0.53604)
 group = 3
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner15" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, -0.203553)
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, -0.0793359)
 group = 3
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Spawner16" parent="boat/Enemy Spawners" node_paths=PackedStringArray("new_parent") instance=ExtResource("4_jru2n")]
-transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, 0.306801)
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0.535756, -0.137971, 0.431018)
 group = 4
 new_parent = NodePath("../../enemies")
 
 [node name="Enemy Boundries" type="Node3D" parent="boat"]
+visible = false
 
 [node name="Front Boundry" type="Area3D" parent="boat/Enemy Boundries"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, -0.521878, 0.35, -0.354035)
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, -0.521878, 0.35, 1.22925e-09)
 collision_layer = 4
 script = ExtResource("5_00g3m")
 direction = Vector3(1, 0, 0)
@@ -380,7 +362,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.0196565
 shape = SubResource("BoxShape3D_t0x6k")
 
 [node name="Back Boundry" type="Area3D" parent="boat/Enemy Boundries"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.481909, 0.35, -0.354035)
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.481909, 0.35, -7.90791e-10)
 collision_layer = 4
 script = ExtResource("5_00g3m")
 direction = Vector3(-1, 0, 0)
@@ -390,7 +372,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.0196565
 shape = SubResource("BoxShape3D_t0x6k")
 
 [node name="Left Boundry" type="Area3D" parent="boat/Enemy Boundries"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 2.98023e-08, 0.331865, 0.683045)
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0.331865, 1.03708)
 collision_layer = 4
 script = ExtResource("5_00g3m")
 direction = Vector3(0, 0, -1)
@@ -400,7 +382,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_skxcl")
 
 [node name="Right Boundry" type="Area3D" parent="boat/Enemy Boundries"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0.35, -1.39566)
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0.35, -1.04163)
 collision_layer = 4
 script = ExtResource("5_00g3m")
 direction = Vector3(0, 0, 1)
@@ -410,58 +392,50 @@ transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_skxcl")
 
 [node name="enemies" type="Node3D" parent="boat"]
-script = SubResource("GDScript_nlivm")
+script = ExtResource("7_kwfl0")
 
 [node name="Start Enemy" parent="boat" instance=ExtResource("8_p2pha")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.216078, 0.406, -0.312732)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 6.51351e-17, 0, 0.1, -0.216078, 0.406, -9.44298e-09)
 starter = true
 
 [node name="Ship Top" type="Marker3D" parent="boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.306)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.351189, 0)
 
 [node name="impact_zone" parent="." instance=ExtResource("4_mrcbv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.35797, -2.08165e-12)
 
 [node name="Main Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, -8.71964e-17, -1.51029e-16, 1.09434e-16, 0.988049, 0.154141, 1.35783e-16, -0.154141, 0.988049, -0.297134, 1.5, 1.2)
+transform = Transform3D(1, -8.71964e-17, -1.51029e-16, 1.09434e-16, 0.988049, 0.154141, 1.35783e-16, -0.154141, 0.988049, 0, 1.5, 1.2)
+visible = false
 attributes = SubResource("CameraAttributesPractical_qv5fb")
 current = true
 fov = 60.0
 script = ExtResource("8_oqmxj")
 
 [node name="Start Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.982525, 0.18613, 0, -0.18613, 0.982525, -0.316, 0.919, 1.215)
+transform = Transform3D(1, 0, 0, 0, 0.982525, 0.18613, 0, -0.18613, 0.982525, 0, 0.919074, 1.21521)
+visible = false
 attributes = SubResource("CameraAttributesPractical_i81id")
 
 [node name="Game Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, -8.71965e-17, -1.51029e-16, 1.74393e-16, 0.5, 0.866025, 0, -0.866025, 0.5, -0.316467, 1.92096, 1.29689)
+transform = Transform3D(1, -8.71965e-17, -1.51029e-16, 1.74393e-16, 0.5, 0.866025, 0, -0.866025, 0.5, -0.0411648, 1.81348, 1.39481)
+visible = false
 fov = 60.0
 
 [node name="hand" parent="." instance=ExtResource("14_14moi")]
 
-[node name="Graveyard" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.786606, -4.41823)
-script = ExtResource("12_5wd2n")
-
-[node name="Marker3D" type="Marker3D" parent="Graveyard"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.309748, 0, 0)
-
-[node name="Marker3D2" type="Marker3D" parent="Graveyard"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.402416, 0, 0)
-
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_tnwam")
-volume_db = -11.0
 
 [node name="UI" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="UI"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.313, 1.722, -1.603)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.138675, 1.72171, -1.60309)
 mesh = SubResource("TextMesh_t2t3c")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="UI"]
-transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, -0.312994, 0.605231, 0.688326)
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0.00204299, 0.605231, 0.709711)
 mesh = SubResource("CylinderMesh_guxdr")
 skeleton = NodePath("")
 
