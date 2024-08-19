@@ -417,7 +417,7 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.216078, 0.406, -0.31
 starter = true
 
 [node name="Ship Top" type="Marker3D" parent="boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.306)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.306)
 
 [node name="impact_zone" parent="." instance=ExtResource("4_mrcbv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.35797, -2.08165e-12)

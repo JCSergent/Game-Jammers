@@ -41,6 +41,7 @@ func _process(delta):
 		if !music.playing and play_music:
 			music.playing = true
 		if ship_top.global_position.y < 0:
+			music.pitch_scale = 1
 			spawner_manager.stop()
 			for child in enemies.get_children():
 				child.queue_free()
