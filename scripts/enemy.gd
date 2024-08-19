@@ -66,7 +66,7 @@ func _calc_hit_trajectory(mouse_pos, power):
 				
 			
 		state = 'Flying'
-		animation_player.play('gnome_flying')
+		animation_player.play('splash')
 
 func set_mesh():
 	pass
