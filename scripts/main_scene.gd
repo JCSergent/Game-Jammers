@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var music = $music
 @onready var main_camera: MainCamera = $"Main Camera"
-@onready var spawner_manager: SpawnerManager = $"boat/Enemy Spawners"
+@onready var spawner_manager = $"boat/Enemy Spawners"
 @onready var start_enemy: Enemy = $"boat/Start Enemy"
 
 @onready var mesh_instance_3d = $UI/MeshInstance3D

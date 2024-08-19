@@ -8,6 +8,8 @@ class_name ImpactZone extends Node3D
 var start_pos = Vector3(0,0,0)
 var end_pos = Vector3(0,0,0)
 
+var splash = preload("res://scenes/splash.tscn")
+
 func _ready():
 	disable()
 
@@ -46,6 +48,7 @@ func _process(delta):
 		hand.visible = false
 		self.scale = Vector3(0.01,0.01,0.01) # hot fix for weird bug
 		SignalBus.released.emit(start_pos, start_pos.distance_to(end_pos))
+		
 
 func shoot_ray():
 	var mouse_pos = get_viewport().get_mouse_position()

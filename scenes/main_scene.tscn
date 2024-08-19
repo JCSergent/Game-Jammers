@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dn7hpecn01mal"]
+[gd_scene load_steps=37 format=3 uid="uid://dn7hpecn01mal"]
 
 [ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_sk3b3"]
 [ext_resource type="Shader" path="res://shaders/windwaker_water.gdshader" id="2_cjsv4"]
@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dxnylk6j8hu54" path="res://assets/island2.glb" id="11_25jnh"]
 [ext_resource type="PackedScene" uid="uid://b380y6jf33jiq" path="res://assets/island3.glb" id="12_yxsbw"]
 [ext_resource type="AudioStream" uid="uid://rbatmp1ovsry" path="res://sounds/songofthegnomes.wav" id="13_tnwam"]
-[ext_resource type="PackedScene" path="res://scenes/hand.tscn" id="14_14moi"]
+[ext_resource type="PackedScene" uid="uid://qb4cfjistqv" path="res://scenes/hand.tscn" id="14_14moi"]
 
 [sub_resource type="Shader" id="Shader_xr527"]
 code = "
@@ -239,9 +239,13 @@ tracks/0/keys = {
 "values": [Vector3(0.02, 0.02, 0.02), Vector3(0.04, 0.04, 0.04)]
 }
 
+[sub_resource type="Animation" id="Animation_u8vda"]
+resource_name = "splash"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6kxam"]
 _data = {
 "RESET": SubResource("Animation_cpgh0"),
+"splash": SubResource("Animation_u8vda"),
 "start_game": SubResource("Animation_am0tu")
 }
 
