@@ -53,7 +53,6 @@ func _process(delta):
 		hand.animation = "flick"
 		hand.frame = hand_frame
 		hand.start_timer()
-		# hand.visible = false
 		self.scale = Vector3(0.01,0.01,0.01) # hot fix for weird bug
 		
 

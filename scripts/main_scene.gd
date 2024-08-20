@@ -13,13 +13,15 @@ extends Node3D
 @onready var animation_player = $UI/AnimationPlayer
 @onready var enemies = $boat/enemies
 @export var play_music = false
+@onready var final_score = $UI/final_score
 
 const ENEMY = preload("res://scenes/enemy.tscn")
 var game_state =  'Start'
 var init_state = false
+var triggered_death = false
 
 func _ready():
-	print(start_enemy.global_position)
+	SignalBus.restart_game.connect(func restart_game(): init_state = true)
 	animation_player.play("start_game")
 	if play_music:
 		music.playing = true
@@ -46,11 +48,13 @@ func _process(delta):
 			for child in enemies.get_children():
 				child.queue_free()
 			main_camera.view_start()
-			#graveyard.spawn_dead_gnomes()
 			game_state = 'End'
-			init_state = true
 	elif game_state == 'End':
+		if !triggered_death:
+			graveyard.spawn_dead_gnomes()
+			triggered_death = true
 		if init_state:
+			final_score.visible = false
 			get_tree().create_timer(2).timeout.connect(func reset():
 				mesh_instance_3d_3.visible = true
 				create_tween().tween_property(mesh_instance_3d, "transparency", 0.0, 0.5).from(1.0)
@@ -62,5 +66,6 @@ func _process(delta):
 				game_state = 'Start'
 			)
 			init_state = false
+			
 
 
