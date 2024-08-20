@@ -127,16 +127,16 @@ noise = SubResource("FastNoiseLite_iptxm")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3k2d0"]
 shader = SubResource("Shader_xr527")
-shader_parameter/sky_top_color = Color(0.129412, 0.8, 1, 1)
+shader_parameter/sky_top_color = Color(0.385, 0.454, 0.55, 1)
 shader_parameter/sky_horizon_color = Color(0.490196, 0.960784, 0.976471, 1)
 shader_parameter/sky_curve = 0.0675935
 shader_parameter/sky_energy = 1.0
 shader_parameter/sky_cover_modulate = Color(1, 1, 1, 1)
 shader_parameter/ground_bottom_color = Color(0.927635, 0.946886, 1, 1)
 shader_parameter/ground_horizon_color = Color(0.230731, 0.712339, 0.897148, 1)
-shader_parameter/ground_curve = 0.101965
+shader_parameter/ground_curve = 0.02
 shader_parameter/ground_energy = 1.0
-shader_parameter/sun_angle_max = 0.523599
+shader_parameter/sun_angle_max = 30.0
 shader_parameter/sun_curve = 0.15
 shader_parameter/cloud_direction = Vector2(1, 1)
 shader_parameter/cloud_direction2 = Vector2(0, 0)
@@ -157,7 +157,6 @@ glow_intensity = 2.67
 glow_strength = 1.38
 glow_blend_mode = 0
 fog_light_color = Color(0.659572, 0.690093, 0.738049, 1)
-fog_height_density = 16.0
 adjustment_enabled = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ya6hf"]
@@ -278,7 +277,8 @@ environment = SubResource("Environment_rsja5")
 mesh = SubResource("PlaneMesh_u7yt1")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.579964, 0.814642, 0, -0.814642, 0.579964, 0.523952, 8.44928, 5.28395)
+transform = Transform3D(1, 0, 0, 0, 0.889982, 0.455995, 0, -0.455995, 0.889982, 0.523952, 8.44928, 5.28395)
+sky_mode = 1
 
 [node name="boat" parent="." node_paths=PackedStringArray("enemy_group") instance=ExtResource("3_7tbkn")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.25, 0.4)
@@ -474,8 +474,7 @@ transform = Transform3D(1, 0, 0, 0, 0.982525, 0.18613, 0, -0.18613, 0.982525, -0
 attributes = SubResource("CameraAttributesPractical_i81id")
 
 [node name="Game Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, -8.71965e-17, -1.51029e-16, 1.74393e-16, 0.5, 0.866025, 0, -0.866025, 0.5, -0.316467, 1.92096, 1.29689)
-fov = 60.0
+transform = Transform3D(1, -8.71965e-17, -1.51029e-16, 1.74393e-16, 0.5, 0.866025, 0, -0.866025, 0.5, -0.316467, 1.67629, 1.22944)
 
 [node name="hand" parent="." instance=ExtResource("14_14moi")]
 

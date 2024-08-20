@@ -9,6 +9,7 @@ var active_tween: Tween
 
 func _ready():
 	start_pos = self.position
+
 func _on_enemies_child_entered_tree(node):
 	var offset_ratio = enemy_group.get_child_count() / max_enemies
 	if active_tween:
