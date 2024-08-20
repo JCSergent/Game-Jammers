@@ -16,6 +16,7 @@ const X_BOUNDS = [-0.45, 0.45]
 const Y_BOUNDS = [-1.3, 0.6] # this is really z bounds :) 
 const LANDING_OFFSET = 0.2 # for avoiding clipping
 const INITIAL_Y = 0.375 # idk where this number comes from
+const POWER_DAMPENING = 0.5
 
 var p0 = Vector3.ZERO
 var p1 = Vector3.ZERO
@@ -30,12 +31,13 @@ func _ready():
 		animation_player.play('gnome_climbing')
 	
 func hit(mouse_pos, power):
+	power *= POWER_DAMPENING
 	audio.pitch_scale = 0.8 + float(randi() % 12) / 10
 	audio.playing = true
 	var diff = (mouse_pos - self.global_position)*Vector3(1,0,1)
 	if starter:
 		power = 1.2
-
+	
 	# the ship is rotated 90deg in y axis so I'm hacking this together rather than changing it
 	# this gets the distance between the base of the cone and the enemy to calc the vector the enemy trajectory should follow
 	var rot = Vector3(diff.z, 0, -diff.x).normalized()
