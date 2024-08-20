@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dn7hpecn01mal"]
+[gd_scene load_steps=41 format=3 uid="uid://dn7hpecn01mal"]
 
 [ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_sk3b3"]
 [ext_resource type="Shader" path="res://shaders/windwaker_water.gdshader" id="2_cjsv4"]
@@ -175,10 +175,13 @@ material = SubResource("ShaderMaterial_ya6hf")
 size = Vector2(1000, 1000)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t0x6k"]
-size = Vector3(0.0578676, 0.221603, 2.02262)
+size = Vector3(0.0578676, 0.221603, 3.87086)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_skxcl"]
-size = Vector3(1.00115, 0.218397, 0.0624855)
+size = Vector3(1.2459, 0.218397, 0.0624855)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jg0ya"]
+size = Vector3(0.0537109, 0.114868, 0.7444)
 
 [sub_resource type="GDScript" id="GDScript_nlivm"]
 script/source = "class_name EnemyManager extends Node3D
@@ -416,7 +419,7 @@ script = ExtResource("5_00g3m")
 direction = Vector3(1, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Front Boundry"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.0196565, 0, -0.000603676)
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0x6k")
 
 [node name="Back Boundry" type="Area3D" parent="boat/Enemy Boundries"]
@@ -426,7 +429,7 @@ script = ExtResource("5_00g3m")
 direction = Vector3(-1, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Back Boundry"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.0196565, 0, -0.000603676)
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_t0x6k")
 
 [node name="Left Boundry" type="Area3D" parent="boat/Enemy Boundries"]
@@ -440,14 +443,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_skxcl")
 
 [node name="Right Boundry" type="Area3D" parent="boat/Enemy Boundries"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0.35, -1.39566)
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 2.98023e-08, 0.35, -1.83387)
 collision_layer = 4
 script = ExtResource("5_00g3m")
 direction = Vector3(0, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Right Boundry"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 1.12238e-23, 0, 1.12238e-23, 1, 0.0129833, 0, -0.0339967)
 shape = SubResource("BoxShape3D_skxcl")
+
+[node name="Area3D" type="Area3D" parent="boat/Enemy Boundries"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -0.365826, 0.368053, -1.6651)
+collision_layer = 4
+script = ExtResource("5_00g3m")
+direction = Vector3(1, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Area3D"]
+transform = Transform3D(1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_jg0ya")
+
+[node name="Area3D2" type="Area3D" parent="boat/Enemy Boundries"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.344832, 0.368053, -1.71164)
+collision_layer = 4
+script = ExtResource("5_00g3m")
+direction = Vector3(-1, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boat/Enemy Boundries/Area3D2"]
+transform = Transform3D(1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_jg0ya")
 
 [node name="enemies" type="Node3D" parent="boat"]
 script = SubResource("GDScript_nlivm")
@@ -534,5 +557,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103.158, 0, -187.862)
 [connection signal="area_entered" from="boat/Enemy Boundries/Back Boundry" to="boat/Enemy Boundries/Back Boundry" method="_on_area_entered"]
 [connection signal="area_entered" from="boat/Enemy Boundries/Left Boundry" to="boat/Enemy Boundries/Left Boundry" method="_on_area_entered"]
 [connection signal="area_entered" from="boat/Enemy Boundries/Right Boundry" to="boat/Enemy Boundries/Right Boundry" method="_on_area_entered"]
+[connection signal="area_entered" from="boat/Enemy Boundries/Area3D" to="boat/Enemy Boundries/Area3D" method="_on_area_entered"]
+[connection signal="area_entered" from="boat/Enemy Boundries/Area3D2" to="boat/Enemy Boundries/Area3D2" method="_on_area_entered"]
 [connection signal="child_entered_tree" from="boat/enemies" to="boat" method="_on_enemies_child_entered_tree"]
 [connection signal="child_exiting_tree" from="boat/enemies" to="boat" method="_on_enemies_child_exiting_tree"]
