@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bxwwiwryit1mu"]
+
+[node name="Sprite3D" type="Sprite3D"]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+billboard = 1
+text = "TESTING"

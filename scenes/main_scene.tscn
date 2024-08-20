@@ -156,8 +156,18 @@ mesh = SubResource("PlaneMesh_u7yt1")
 transform = Transform3D(1, 0, 0, 0, 0.889982, 0.455995, 0, -0.455995, 0.889982, 0.523952, 8.44928, 5.28395)
 sky_mode = 1
 
+[node name="Graveyard" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.786606, -4.41823)
+script = ExtResource("12_5wd2n")
+
+[node name="Marker3D" type="Marker3D" parent="Graveyard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.309748, 0, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="Graveyard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.402416, 0, 0)
+
 [node name="boat" parent="." node_paths=PackedStringArray("enemy_group") instance=ExtResource("3_7tbkn")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.25, 0.4)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.00129682, 0.25, 0.399545)
 enemy_group = NodePath("enemies")
 
 [node name="Enemy Spawners" type="Node3D" parent="boat"]
@@ -349,7 +359,7 @@ shape = SubResource("BoxShape3D_jg0ya")
 script = SubResource("GDScript_nlivm")
 
 [node name="Start Enemy" parent="boat" instance=ExtResource("8_p2pha")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.216078, 0.406, -0.312732)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 6.51351e-17, 0, 0.1, -0.216078, 0.406, -0.312732)
 starter = true
 
 [node name="Ship Top" type="Marker3D" parent="boat"]
@@ -374,17 +384,6 @@ transform = Transform3D(1, -8.71964e-17, -1.51028e-16, 1.7011e-16, 0.678468, 0.7
 
 [node name="hand" parent="." instance=ExtResource("14_14moi")]
 
-[node name="Graveyard" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.786606, -4.41823)
-visible = false
-script = ExtResource("12_5wd2n")
-
-[node name="Marker3D" type="Marker3D" parent="Graveyard"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.309748, 0, 0)
-
-[node name="Marker3D2" type="Marker3D" parent="Graveyard"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.402416, 0, 0)
-
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_tnwam")
 volume_db = -11.0
@@ -406,6 +405,14 @@ root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_6kxam")
 }
+
+[node name="final_score" type="Label3D" parent="UI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.323, 1, 2.08165e-12)
+visible = false
+text = "Gnomes flung:
+0"
+font = ExtResource("12_t7rva")
+font_size = 70
 
 [node name="Islands" type="Node" parent="."]
 
