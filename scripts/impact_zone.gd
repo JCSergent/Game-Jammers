@@ -4,7 +4,7 @@ class_name ImpactZone extends Node3D
 @onready var main_camera: MainCamera = $"../Main Camera"
 @onready var hand = $"../hand"
 
-@export var pull_difficulty = 0.3
+@export var pull_difficulty = 0.2# lower number higher difficulty
 var start_pos = Vector3(0,0,0)
 var end_pos = Vector3(0,0,0)
 
