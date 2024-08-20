@@ -9,7 +9,8 @@ class_name Enemy extends Area3D
 var splash = preload("res://scenes/splash.tscn")
 var state: String = ''
 var direction: Vector3
-var speed: float = 0.6
+var speed: float = 0.1
+var flight_speed = 0
 # current ship bounds apprx
 const X_BOUNDS = [-0.45, 0.45]
 const Y_BOUNDS = [-1.3, 0.6] # this is really z bounds :) 
@@ -58,8 +59,8 @@ func hit(mouse_pos, power):
 		elif p2.z > Y_BOUNDS[1]:
 			p2.z = max(p2.z, Y_BOUNDS[1] + LANDING_OFFSET)
 
-		animation_player.play('gnome_flying')
-		state = 'Flying'
+	animation_player.play('gnome_flying')
+	state = 'Flying'
 
 
 func bezier(t):
@@ -70,7 +71,7 @@ func bezier(t):
 
 func launch(delta):
 	self.position = bezier(time)
-	time += delta
+	time += delta*1.5
 	
 func wander(direction: Vector3):
 	self.position.y = INITIAL_Y

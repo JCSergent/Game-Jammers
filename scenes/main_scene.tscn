@@ -15,7 +15,7 @@
 [ext_resource type="FontFile" uid="uid://cwpvmds5w7q4w" path="res://assets/Basteleur-Moonlight.ttf" id="12_t7rva"]
 [ext_resource type="PackedScene" uid="uid://b380y6jf33jiq" path="res://assets/island3.glb" id="12_yxsbw"]
 [ext_resource type="AudioStream" uid="uid://rbatmp1ovsry" path="res://sounds/songofthegnomes.wav" id="13_tnwam"]
-[ext_resource type="PackedScene" path="res://scenes/hand.tscn" id="14_14moi"]
+[ext_resource type="PackedScene" uid="uid://qb4cfjistqv" path="res://scenes/hand.tscn" id="14_14moi"]
 
 [sub_resource type="Shader" id="Shader_xr527"]
 code = "
@@ -271,7 +271,6 @@ _data = {
 [node name="Node3D2" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.12276e-05, 0.00487638, -0.00370121)
 script = ExtResource("1_sk3b3")
-play_music = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rsja5")
