@@ -1,8 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://qb4cfjistqv"]
+[gd_scene load_steps=29 format=3 uid="uid://qb4cfjistqv"]
 
 [ext_resource type="Texture2D" uid="uid://dkvtkmqalo6ds" path="res://assets/hand.png" id="1_8lnne"]
 [ext_resource type="Texture2D" uid="uid://7ypryatltqyg" path="res://assets/flicking.png" id="2_n8rxj"]
 [ext_resource type="Script" path="res://scripts/hand.gd" id="3_xjbyf"]
+[ext_resource type="Script" path="res://scripts/shake_animation.gd" id="4_2fclj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0xe4c"]
 atlas = ExtResource("2_n8rxj")
@@ -178,7 +179,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D"]
+[node name="Sprite" type="AnimatedSprite3D"]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_nl44c")
@@ -188,5 +189,8 @@ script = ExtResource("3_xjbyf")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="shake_animation" type="Node" parent="."]
+script = ExtResource("4_2fclj")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

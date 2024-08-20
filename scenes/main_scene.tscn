@@ -15,7 +15,7 @@
 [ext_resource type="FontFile" uid="uid://cwpvmds5w7q4w" path="res://assets/Basteleur-Moonlight.ttf" id="12_t7rva"]
 [ext_resource type="PackedScene" uid="uid://b380y6jf33jiq" path="res://assets/island3.glb" id="12_yxsbw"]
 [ext_resource type="AudioStream" uid="uid://rbatmp1ovsry" path="res://sounds/songofthegnomes.wav" id="13_tnwam"]
-[ext_resource type="PackedScene" path="res://scenes/hand.tscn" id="14_14moi"]
+[ext_resource type="PackedScene" uid="uid://qb4cfjistqv" path="res://scenes/hand.tscn" id="14_14moi"]
 
 [sub_resource type="Shader" id="Shader_xr527"]
 code = "

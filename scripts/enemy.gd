@@ -59,8 +59,8 @@ func hit(mouse_pos, power):
 		elif p2.z > Y_BOUNDS[1]:
 			p2.z = max(p2.z, Y_BOUNDS[1] + LANDING_OFFSET)
 
-		animation_player.play('gnome_flying')
-		state = 'Flying'
+	animation_player.play('gnome_flying')
+	state = 'Flying'
 
 
 func bezier(t):
