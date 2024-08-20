@@ -15,7 +15,7 @@
 [ext_resource type="FontFile" uid="uid://cwpvmds5w7q4w" path="res://assets/Basteleur-Moonlight.ttf" id="12_t7rva"]
 [ext_resource type="PackedScene" uid="uid://b380y6jf33jiq" path="res://assets/island3.glb" id="12_yxsbw"]
 [ext_resource type="AudioStream" uid="uid://rbatmp1ovsry" path="res://sounds/songofthegnomes.wav" id="13_tnwam"]
-[ext_resource type="PackedScene" uid="uid://qb4cfjistqv" path="res://scenes/hand.tscn" id="14_14moi"]
+[ext_resource type="PackedScene" path="res://scenes/hand.tscn" id="14_14moi"]
 
 [sub_resource type="Shader" id="Shader_xr527"]
 code = "
@@ -127,13 +127,13 @@ noise = SubResource("FastNoiseLite_iptxm")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3k2d0"]
 shader = SubResource("Shader_xr527")
-shader_parameter/sky_top_color = Color(0.385, 0.454, 0.55, 1)
-shader_parameter/sky_horizon_color = Color(0.490196, 0.960784, 0.976471, 1)
-shader_parameter/sky_curve = 0.0675935
+shader_parameter/sky_top_color = Color(0.66458, 0.722212, 0.802576, 1)
+shader_parameter/sky_horizon_color = Color(0.493435, 0.806265, 0.980759, 1)
+shader_parameter/sky_curve = 0.322
 shader_parameter/sky_energy = 1.0
 shader_parameter/sky_cover_modulate = Color(1, 1, 1, 1)
 shader_parameter/ground_bottom_color = Color(0.927635, 0.946886, 1, 1)
-shader_parameter/ground_horizon_color = Color(0.230731, 0.712339, 0.897148, 1)
+shader_parameter/ground_horizon_color = Color(0.120388, 0.54647, 0.739376, 1)
 shader_parameter/ground_curve = 0.02
 shader_parameter/ground_energy = 1.0
 shader_parameter/sun_angle_max = 30.0
@@ -271,6 +271,7 @@ _data = {
 [node name="Node3D2" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.12276e-05, 0.00487638, -0.00370121)
 script = ExtResource("1_sk3b3")
+play_music = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rsja5")

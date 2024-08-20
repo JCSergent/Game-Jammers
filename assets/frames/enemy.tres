@@ -1,8 +1,8 @@
-[gd_resource type="SpriteFrames" load_steps=71 format=3 uid="uid://bg2q6s8raiwur"]
+[gd_resource type="SpriteFrames" load_steps=48 format=3 uid="uid://bg2q6s8raiwur"]
 
-[ext_resource type="Texture2D" uid="uid://ccpi3k4dd0rew" path="res://assets/Gnome_Climbing.png" id="1_54bj6"]
+[ext_resource type="Texture2D" uid="uid://bwhdlx1wtohjo" path="res://assets/Gnome_Climbing.png" id="1_54bj6"]
 [ext_resource type="Texture2D" uid="uid://cq6fng24f5bqt" path="res://assets/Gnome_Idle.png" id="3_jmvbj"]
-[ext_resource type="Texture2D" uid="uid://ba1151drgadnf" path="res://assets/Gnome_Walking.png" id="4_lw2uv"]
+[ext_resource type="Texture2D" uid="uid://bx4p64q6ol421" path="res://assets/Gnome_Walking.png" id="4_lw2uv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5j4x7"]
 atlas = ExtResource("1_54bj6")
@@ -83,75 +83,6 @@ region = Rect2(8568, 0, 476, 434)
 [sub_resource type="AtlasTexture" id="AtlasTexture_dipwr"]
 atlas = ExtResource("1_54bj6")
 region = Rect2(9044, 0, 476, 434)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1hrek"]
-region = Rect2(0, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wjsxt"]
-region = Rect2(854, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6fjho"]
-region = Rect2(1708, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k52rp"]
-region = Rect2(2562, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x4e77"]
-region = Rect2(3416, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fqnw0"]
-region = Rect2(4270, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p6grf"]
-region = Rect2(5124, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b7ahr"]
-region = Rect2(5978, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vf5ow"]
-region = Rect2(6832, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2w01k"]
-region = Rect2(7686, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xlxmk"]
-region = Rect2(8540, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p555q"]
-region = Rect2(9394, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3wfk1"]
-region = Rect2(10248, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2acmu"]
-region = Rect2(11102, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_314kf"]
-region = Rect2(11956, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ws688"]
-region = Rect2(12810, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6webp"]
-region = Rect2(13664, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pj56u"]
-region = Rect2(14518, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qa3xp"]
-region = Rect2(15372, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0u3nj"]
-region = Rect2(16226, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ocsf"]
-region = Rect2(17080, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7hfq2"]
-region = Rect2(17934, 0, 854, 514)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1jckw"]
-region = Rect2(18788, 0, 854, 514)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lqnlh"]
 atlas = ExtResource("3_jmvbj")
@@ -316,76 +247,7 @@ animations = [{
 "name": &"gnome_climbing",
 "speed": 30.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1hrek")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wjsxt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6fjho")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k52rp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x4e77")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fqnw0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p6grf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b7ahr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vf5ow")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2w01k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xlxmk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p555q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3wfk1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2acmu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_314kf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ws688")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6webp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pj56u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qa3xp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0u3nj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4ocsf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7hfq2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1jckw")
-}],
+"frames": [],
 "loop": true,
 "name": &"gnome_flying",
 "speed": 5.0

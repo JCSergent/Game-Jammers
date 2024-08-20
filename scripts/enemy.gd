@@ -9,7 +9,7 @@ class_name Enemy extends Area3D
 var splash = preload("res://scenes/splash.tscn")
 var state: String = ''
 var direction: Vector3
-var speed: float = 0.1
+var speed: float = 0.5
 var flight_speed = 0
 # current ship bounds apprx
 const X_BOUNDS = [-0.45, 0.45]
