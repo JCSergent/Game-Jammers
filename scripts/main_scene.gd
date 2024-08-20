@@ -19,7 +19,6 @@ var game_state =  'Start'
 var init_state = false
 
 func _ready():
-	print(start_enemy.global_position)
 	animation_player.play("start_game")
 	if play_music:
 		music.playing = true

@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" load_steps=72 format=3 uid="uid://bg2q6s8raiwur"]
 
-[ext_resource type="Texture2D" uid="uid://ccpi3k4dd0rew" path="res://assets/Gnome_Climbing.png" id="1_54bj6"]
+[ext_resource type="Texture2D" uid="uid://bwhdlx1wtohjo" path="res://assets/Gnome_Climbing.png" id="1_54bj6"]
 [ext_resource type="Texture2D" uid="uid://2wudghbww7o8" path="res://assets/Gnome_Flying.png" id="2_2rag5"]
 [ext_resource type="Texture2D" uid="uid://cq6fng24f5bqt" path="res://assets/Gnome_Idle.png" id="3_jmvbj"]
 [ext_resource type="Texture2D" uid="uid://bx4p64q6ol421" path="res://assets/Gnome_Walking.png" id="4_lw2uv"]

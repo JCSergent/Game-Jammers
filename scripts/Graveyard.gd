@@ -10,7 +10,6 @@ func _ready():
 	
 func spawn_dead_gnomes():
 	while dead_gnome_count > 0:
-		print(get_child_count())
 		var spawner = get_child(randi_range(0,get_child_count()-1))
 		print(spawner)
 		spawner.add_child(DEAD_GNOME.instantiate())

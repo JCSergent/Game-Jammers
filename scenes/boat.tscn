@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dnj3pg2bkgmvw"]
+[gd_scene load_steps=10 format=3 uid="uid://dnj3pg2bkgmvw"]
 
 [ext_resource type="Script" path="res://scripts/boat.gd" id="1_masfh"]
 [ext_resource type="PackedScene" uid="uid://cqia280b0w4n1" path="res://assets/boat/Gamejam_BoatSimple_Small_wCombinedPass.glb" id="3_kbygj"]
 [ext_resource type="PackedScene" uid="uid://yv3lh8qdu54f" path="res://scenes/boat_skeleton.tscn" id="3_o2yax"]
 [ext_resource type="PackedScene" uid="uid://cjsweupumj2ed" path="res://assets/boat/Gamejam_BoatSimple_Small_wDiffusePass.glb" id="4_cc47b"]
 [ext_resource type="PackedScene" uid="uid://7komwxrp5oa2" path="res://assets/boat/Gamejam_BoatSimple_Small_wDiffusePass (1).glb" id="5_02rys"]
+[ext_resource type="Shape3D" uid="uid://ctdxkjw3jts13" path="res://assets/boat/boat_concave_polygon_shape_3d.tres" id="6_wtnc7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgq32"]
 albedo_color = Color(0.533333, 0.423529, 0.321569, 1)
@@ -40,3 +41,12 @@ visible = false
 visible = false
 
 [node name="Gamejam_BoatSimple_Small_wDiffusePass (1)" parent="." instance=ExtResource("5_02rys")]
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.375707, 0)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = ExtResource("6_wtnc7")

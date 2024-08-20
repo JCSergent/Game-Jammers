@@ -480,7 +480,7 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.216078, 0.406, -0.31
 starter = true
 
 [node name="Ship Top" type="Marker3D" parent="boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.306)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38, -0.306)
 
 [node name="impact_zone" parent="." instance=ExtResource("4_mrcbv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.35797, 0)
@@ -497,7 +497,7 @@ transform = Transform3D(1, 0, 0, 0, 0.982525, 0.18613, 0, -0.18613, 0.982525, -0
 attributes = SubResource("CameraAttributesPractical_i81id")
 
 [node name="Game Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, -8.71965e-17, -1.51029e-16, 1.74393e-16, 0.5, 0.866025, 0, -0.866025, 0.5, -0.316467, 1.67629, 1.22944)
+transform = Transform3D(1, -8.71965e-17, -1.51029e-16, 1.7011e-16, 0.678468, 0.73463, 3.84109e-17, -0.73463, 0.678468, -0.317057, 1.34299, 1.45037)
 
 [node name="hand" parent="." instance=ExtResource("14_14moi")]
 

@@ -3,6 +3,7 @@ class_name Enemy extends Area3D
 @onready var animation_player = $AnimationPlayer
 @onready var animated_sprite_3d = $AnimatedSprite3D
 @onready var audio = $audio_effects
+@onready var ray_cast_3d = $RayCast3D
 
 @export var starter: bool
 
@@ -15,7 +16,7 @@ var flight_speed = 0
 const X_BOUNDS = [-0.45, 0.45]
 const Y_BOUNDS = [-1.3, 0.6] # this is really z bounds :) 
 const LANDING_OFFSET = 0.2 # for avoiding clipping
-const INITIAL_Y = 0.375 # idk where this number comes from
+const INITIAL_Y = 0.385 # idk where this number comes from
 
 var p0 = Vector3.ZERO
 var p1 = Vector3.ZERO
@@ -105,7 +106,18 @@ func _physics_process(delta):
 		self.position += direction * speed * delta
 		
 func in_bounds(pos):
-	return pos.x > X_BOUNDS[0] and pos.x < X_BOUNDS[1] and pos.z > Y_BOUNDS[0] and pos.z < Y_BOUNDS[1]
+	var space = get_world_3d().direct_space_state
+	var ray_query = PhysicsRayQueryParameters3D.new()
+	print(pos + (Vector3(0, 1, 0)*10))
+	print(pos + (Vector3(0, -1, 0)*10))
+	ray_query.from = to_global(pos + (Vector3(0, 1, 0)*10))
+	ray_query.to = to_global(pos + (Vector3(0, -1, 0)*20))
+	ray_query.collision_mask = 5
+	ray_query.collide_with_areas = true
+	ray_query.collide_with_bodies = false
+	print(space.intersect_ray(ray_query))
+	return space.intersect_ray(ray_query)
+	# return pos.x > X_BOUNDS[0] and pos.x < X_BOUNDS[1] and pos.z > Y_BOUNDS[0] and pos.z < Y_BOUNDS[1]
 	
 func add_splash(position):
 	var new_splash = splash.instantiate()
