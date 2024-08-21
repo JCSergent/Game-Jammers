@@ -2,7 +2,7 @@ extends StaticBody3D
 
 @export var enemy_group: Node
 @export var max_enemies: float = 40.0
-@export var max_sink_offset: Vector3 = Vector3(0, -.4, 0)
+@export var max_sink_offset: Vector3 = Vector3(0, -.38, 0)
 var start_pos: Vector3
 
 var active_tween: Tween

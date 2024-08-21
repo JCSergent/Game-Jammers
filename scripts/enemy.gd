@@ -3,19 +3,20 @@ class_name Enemy extends Area3D
 @onready var animation_player = $AnimationPlayer
 @onready var animated_sprite_3d = $AnimatedSprite3D
 @onready var audio = $audio_effects
+@onready var ray_cast_3d = $RayCast3D
 
 @export var starter: bool
 
 var splash = preload("res://scenes/splash.tscn")
 var state: String = ''
 var direction: Vector3
-var speed: float = 0.1
+var speed: float = 0.4
 var flight_speed = 0
 # current ship bounds apprx
 const X_BOUNDS = [-0.45, 0.45]
-const Y_BOUNDS = [-1.3, 0.6] # this is really z bounds :) 
-const LANDING_OFFSET = 0.2 # for avoiding clipping
-const INITIAL_Y = 0.375 # idk where this number comes from
+const Y_BOUNDS = [-2.1, 0.45] # this is really z bounds :)
+const LANDING_OFFSET = 0.4 # for avoiding clipping
+const INITIAL_Y = 0.385 # idk where this number comes from
 const POWER_DAMPENING = 0.5
 
 var p0 = Vector3.ZERO
@@ -23,27 +24,39 @@ var p1 = Vector3.ZERO
 var p2 = Vector3.ZERO
 
 var time = 0
+var is_hit = false
+var mouse_pos: Vector3
+var power: float
 
+var test: CSGPolygon3D = null
 func _ready():
+	ConvexPolygonShape3D
 	if starter:
 		animation_player.play("gnome_idle")
 	else:
 		animation_player.play('gnome_climbing')
 	
-func hit(mouse_pos, power):
-	power *= POWER_DAMPENING
+func hit(new_mouse_pos, new_power):
+	is_hit = true
+	mouse_pos = new_mouse_pos
+	power = new_power
 	audio.pitch_scale = 0.8 + float(randi() % 12) / 10
 	audio.playing = true
+	animation_player.play('gnome_flying')
+	state = 'Flying'
+	
+func perform_hit():
+	#power *= POWER_DAMPENING
 	var diff = (mouse_pos - self.global_position)*Vector3(1,0,1)
 	if starter:
-		power = 1.2
+		power = 2.6
 	
 	# the ship is rotated 90deg in y axis so I'm hacking this together rather than changing it
 	# this gets the distance between the base of the cone and the enemy to calc the vector the enemy trajectory should follow
 	var rot = Vector3(diff.z, 0, -diff.x).normalized()
 	p0 = self.position
 	p1 = self.position + rot*power + Vector3(0,0.4,0)
-	p2 = self.position + rot*power*2
+	p2 = self.position + rot*power
 
 	if starter:
 		p1 += Vector3(0,0.6,0)
@@ -57,12 +70,9 @@ func hit(mouse_pos, power):
 			p2.x = max(p2.x, X_BOUNDS[1] + LANDING_OFFSET)
 		
 		if p2.z < Y_BOUNDS[0]:
-			p2.z = min(p2.z, Y_BOUNDS[0] - LANDING_OFFSET)
+			p2.z = min(p2.z, Y_BOUNDS[0] - (LANDING_OFFSET + 0.5))
 		elif p2.z > Y_BOUNDS[1]:
-			p2.z = max(p2.z, Y_BOUNDS[1] + LANDING_OFFSET)
-
-	animation_player.play('gnome_flying')
-	state = 'Flying'
+			p2.z = max(p2.z, Y_BOUNDS[1] + (LANDING_OFFSET + 0.5))
 
 
 func bezier(t):
@@ -92,6 +102,9 @@ func flip(direction: Vector3):
 
 func _physics_process(delta):
 	if state == 'Flying':
+		if is_hit:
+			perform_hit()
+			is_hit = false
 		launch(delta)
 		if in_bounds(p2) and self.position.y < INITIAL_Y -0.01:
 			self.position.y = INITIAL_Y
@@ -105,8 +118,25 @@ func _physics_process(delta):
 			SignalBus.gnome_death.emit()
 	elif state == 'Walking':
 		self.position += direction * speed * delta
-		
-func in_bounds(pos):
+		if !in_bounds(self.position):
+			queue_free()
+
+func in_bounds(pos) -> bool:
+	#print(pos)
+	#ray_cast_3d.global_position = self.to_global(pos)
+	#print(ray_cast_3d.is_colliding())
+	#return ray_cast_3d.is_colliding()
+	#var space = get_world_3d().direct_space_state
+	#var ray_query = PhysicsRayQueryParameters3D.new()
+	##print(pos + (Vector3(0, 1, 0)*10))
+	##print(pos + (Vector3(0, -1, 0)*10))
+	#ray_query.from = to_global(pos + (Vector3(0, 1, 0)*10))
+	#ray_query.to = to_global(pos + (Vector3(0, -1, 0)*20))
+	#ray_query.collision_mask = 0b10000
+	#ray_query.collide_with_areas = true
+	#ray_query.collide_with_bodies = false
+	#print(space.intersect_ray(ray_query))
+	#return space.intersect_ray(ray_query)
 	return pos.x > X_BOUNDS[0] and pos.x < X_BOUNDS[1] and pos.z > Y_BOUNDS[0] and pos.z < Y_BOUNDS[1]
 	
 func add_splash(position):

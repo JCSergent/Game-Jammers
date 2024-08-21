@@ -12,15 +12,15 @@ var current_timer: SceneTreeTimer
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if active_enemy:
-		if path_follow_3d.progress_ratio == 1:
+	if active_enemy and path_follow_3d.progress_ratio == 1:
+		if path_follow_3d.get_child_count() > 0:
 			path_follow_3d.remove_child(active_enemy)
 			new_parent.add_child(active_enemy)
 			active_enemy.global_position = landing_point.global_position
 			var forward = landing_point2.global_position - landing_point.global_position
 			active_enemy.wander(forward.normalized())
-			path_follow_3d.progress = 0
-			active_enemy = null
+		path_follow_3d.progress = 0
+		active_enemy = null
 
 func _physics_process(delta):
 	if active_enemy:

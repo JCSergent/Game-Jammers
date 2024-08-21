@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://caydnc40xqolo"]
+[gd_scene load_steps=3 format=3 uid="uid://l68gi7wp2oho"]
 
 [ext_resource type="Script" path="res://scripts/dead_gnome.gd" id="1_xdlk3"]
 [ext_resource type="SpriteFrames" uid="uid://bfr52dodmsp08" path="res://assets/frames/dead_gnome.tres" id="2_u58y4"]
@@ -9,6 +9,6 @@ script = ExtResource("1_xdlk3")
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 pixel_size = 0.002
 billboard = 1
+texture_filter = 1
 sprite_frames = ExtResource("2_u58y4")
 animation = &"dead_gnome"
-autoplay = "dead_gnome"

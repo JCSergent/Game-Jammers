@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dnj3pg2bkgmvw"]
+[gd_scene load_steps=11 format=3 uid="uid://dnj3pg2bkgmvw"]
 
 [ext_resource type="Script" path="res://scripts/boat.gd" id="1_masfh"]
 [ext_resource type="PackedScene" uid="uid://cqia280b0w4n1" path="res://assets/boat/Gamejam_BoatSimple_Small_wCombinedPass.glb" id="3_kbygj"]
 [ext_resource type="PackedScene" uid="uid://yv3lh8qdu54f" path="res://scenes/boat_skeleton.tscn" id="3_o2yax"]
 [ext_resource type="PackedScene" uid="uid://cjsweupumj2ed" path="res://assets/boat/Gamejam_BoatSimple_Small_wDiffusePass.glb" id="4_cc47b"]
 [ext_resource type="PackedScene" uid="uid://7komwxrp5oa2" path="res://assets/boat/Gamejam_BoatSimple_Small_wDiffusePass (1).glb" id="5_02rys"]
+[ext_resource type="PackedScene" uid="uid://hfbr18q2ok7" path="res://assets/boat/Gamejam_BoatWStairs_Small_wDiffusePass.glb" id="7_21311"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgq32"]
 albedo_color = Color(0.533333, 0.423529, 0.321569, 1)
@@ -16,6 +17,9 @@ material = SubResource("StandardMaterial3D_mgq32")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6engu"]
 size = Vector3(7.53815, 0.280273, 8.29929)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wrl1x"]
+albedo_color = Color(0, 0, 0, 1)
 
 [node name="boat" type="StaticBody3D"]
 script = ExtResource("1_masfh")
@@ -40,3 +44,18 @@ visible = false
 visible = false
 
 [node name="Gamejam_BoatSimple_Small_wDiffusePass (1)" parent="." instance=ExtResource("5_02rys")]
+visible = false
+
+[node name="Gamejam_BoatWStairs_Small_wDiffusePass" parent="." instance=ExtResource("7_21311")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01707, -0.304688)
+visible = false
+size = Vector3(1, 0.733765, 1.60938)
+material = SubResource("StandardMaterial3D_wrl1x")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.920531, 0.718562, -0.304563)
+visible = false
+size = Vector3(1, 0.733765, 1.60938)
+material = SubResource("StandardMaterial3D_wrl1x")
