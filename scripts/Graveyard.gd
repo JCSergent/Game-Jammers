@@ -21,4 +21,7 @@ func spawn_dead_gnomes():
 		boat.add_child(gnome)
 		final_score.text = "Gnomes flung:\n" + str(i+1)
 	await get_tree().create_timer(2).timeout
+	final_score.visible = false
+	final_score.text = "Gnomes flung:\n" + str(0)
+	dead_gnome_count = 0
 	SignalBus.restart_game.emit()

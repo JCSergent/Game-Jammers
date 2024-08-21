@@ -34,7 +34,7 @@ func _process(delta):
 			mesh_instance_3d_3.visible = true
 		if start_enemy == null:
 			mesh_instance_3d_3.visible = false
-			create_tween().tween_property(mesh_instance_3d, "transparency", 1.0, 0.5).from(0.0)
+			mesh_instance_3d.visible = false
 			main_camera.view_game()
 			spawner_manager.restart()
 			game_state = 'Play'
@@ -57,13 +57,14 @@ func _process(delta):
 			final_score.visible = false
 			get_tree().create_timer(2).timeout.connect(func reset():
 				mesh_instance_3d_3.visible = true
-				create_tween().tween_property(mesh_instance_3d, "transparency", 0.0, 0.5).from(1.0)
+				mesh_instance_3d.visible = true
 				start_enemy = ENEMY.instantiate()
 				start_enemy.starter = true
 				boat.add_child(start_enemy)
 				start_enemy.global_position = Vector3(-0.312661, 0.660876, .612377)
 				start_enemy.scale = Vector3(0.1,0.1,0.1)
 				game_state = 'Start'
+				triggered_death = false
 			)
 			init_state = false
 			

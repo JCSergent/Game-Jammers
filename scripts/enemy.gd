@@ -14,9 +14,7 @@ var speed: float = 0.4
 var flight_speed = 0
 # current ship bounds apprx
 const X_BOUNDS = [-0.45, 0.45]
-const Y_BOUNDS = [-1.7, 0.45] # this is really z bounds :) 
-const X_BOUNDS2 = [-0.55, -0.45]
-const Y_BOUNDS2 = [-1.3, 0.6] # this is really z bounds :) 
+const Y_BOUNDS = [-2.1, 0.45] # this is really z bounds :)
 const LANDING_OFFSET = 0.4 # for avoiding clipping
 const INITIAL_Y = 0.385 # idk where this number comes from
 const POWER_DAMPENING = 0.5
@@ -120,6 +118,8 @@ func _physics_process(delta):
 			SignalBus.gnome_death.emit()
 	elif state == 'Walking':
 		self.position += direction * speed * delta
+		if !in_bounds(self.position):
+			queue_free()
 
 func in_bounds(pos) -> bool:
 	#print(pos)
